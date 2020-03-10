@@ -9,12 +9,17 @@ Blockly.QH_TOOLTIP_RGB_LIGHT = '通过选择rgb开关组合灯光';
 Blockly.QH_RGB_RANDOM = '随机rgb灯光';
 Blockly.QH_TOOLTIP_RGB_RANDOM = '生成随机rgb灯光';
 
-// 模块相关常量
+// 基础模块相关常量
 Blockly.QH_ULTRASONIC_RANGING = '超声波测距';
 Blockly.QH_TOOLTIP_ULTRASONIC_RANGING = '块返回超声波测距的距离值';
 Blockly.QH_SERVO_ANGLE = '舵机转动';
 Blockly.QH_SERVO_ANGLE_UNIT = '度';
 Blockly.QH_TOOLTIP_SERVO_ANGLE = '舵机转动指定的度数';
+Blockly.QH_IR_EVADING = '红外避障';
+Blockly.QH_IR_TRACKING = '红外循迹';
+Blockly.QH_LIGHT_SEEKING = '寻光';
+Blockly.QH_VOLTAGE_MEASUREMENT = '电压测量';
+Blockly.QH_BUZZER = '蜂鸣器';
 
 // 小车运动相关常量
 Blockly.QH_CAR_DIRECTION = '运动方向:';
@@ -40,7 +45,7 @@ Blockly.QH_MOVE = '运动';
 Blockly.QH_SECONDS = '秒';
 Blockly.QH_TOOLTIP_CAR_CONTROL = '控制小车的运动速度和时间';
 
-//PS2
+// 遥控
 Blockly.MIXLY_YF_PS2 = 'PS2手柄';
 Blockly.MIXLY_YF_PS2_BUTTON = 'PS2按键';
 Blockly.MIXLY_YF_PS2_A_BUTTON = 'PS2模拟';
@@ -51,3 +56,6 @@ Blockly.MIXLY_YF_PSB_RELEASED = '释放';
 Blockly.MIXLY_YF_PS2_BTN_STATUS = '状态';
 Blockly.MIXLY_YF_IR_RECEIVE = '红外接收';
 Blockly.MIXLY_YF_IR_VAL = '红外遥控器键值';
+Blockly.QH_BLUETOOTH_AVAILABLE = '蓝牙是否有数据可读?';
+Blockly.QH_BLUETOOTH_READ_STRING = '蓝牙读取字符串';
+Blockly.QH_BLUETOOTH_READ_DATA = '蓝牙读取数据';

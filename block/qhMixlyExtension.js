@@ -84,7 +84,7 @@ defineBlock('qh_random_rgb', function() {
 });
 
 /********************************************
- * 模块
+ * 基础模块
  *********************************************/
 Blockly.qhColour.MODEL = '#2E8B57';
 // 超声波测距
@@ -107,6 +107,58 @@ defineBlock('qh_servo_angle', function() {
     .appendField(Blockly.QH_SERVO_ANGLE_UNIT);
   this.setDefault(Blockly.QH_TOOLTIP_SERVO_ANGLE);
 });
+
+/**
+ * 创建通用快 digitalRead
+ * @param {String} name 模块名称
+ * @param {String} desc 描述
+ */
+function createDigitalReadBlock(name, desc) {
+  defineBlock(name, function() {
+    this.setColour(Blockly.qhColour.MODEL);
+    this.appendDummyInput("")
+      .appendField(desc)
+    this.appendValueInput("PIN", Number)
+      .appendField(Blockly.MIXLY_PIN)
+      .setCheck(Number);
+    this.setOutput(true, Boolean);
+    this.setInputsInline(true);
+    this.setTooltip(desc);
+  });
+}
+
+/**
+ * 创建通用快 digitalWrite
+ * @param {String} name 模块名称
+ * @param {String} desc 描述
+ */
+function createDigitalWriteBlock(name, desc) {
+  defineBlock(name, function() {
+    this.setColour(Blockly.qhColour.MODEL);
+    this.appendDummyInput("")
+      .appendField(desc)
+    this.appendValueInput("PIN", Number)
+      .appendField(Blockly.MIXLY_PIN)
+      .setCheck(Number);
+    this.appendValueInput("STAT")
+      .appendField(Blockly.MIXLY_STAT)
+      .setCheck([Number, Boolean]);
+    this.setDefault(desc);
+  });
+}
+
+// 红外避障
+createDigitalReadBlock('qh_ir_evading', Blockly.QH_IR_EVADING);
+// 红外循迹
+createDigitalReadBlock('qh_ir_tracking', Blockly.QH_IR_TRACKING);
+// 寻光
+createDigitalReadBlock('qh_light_seeking', Blockly.QH_LIGHT_SEEKING);
+// 电压测量
+createDigitalReadBlock('qh_voltage_measurement', Blockly.QH_VOLTAGE_MEASUREMENT);
+// 蜂鸣器
+createDigitalWriteBlock('qh_buzzer', Blockly.QH_BUZZER);
+
+
 
 /********************************************
  * 运动模块
@@ -167,14 +219,13 @@ defineBlock('qh_car_pause', function() {
 /********************************************
 遥控 - 红外遥控 、 PS2-手柄遥控
 *********************************************/
-Blockly.qhColour.PS2 = '#47C5CA';
+Blockly.qhColour.REMOTE_CTL = '#47C5CA';
 //红外接收模块
 Blockly.Blocks.yf_ir_recv = {
   init: function() {
-    this.setColour(Blockly.qhColour.PS2);
+    this.setColour(Blockly.qhColour.REMOTE_CTL);
     this.appendDummyInput()
       .appendField(Blockly.MIXLY_YF_IR_RECEIVE)
-      .appendField(new Blockly.FieldImage("../../media/yfrobot/yf_irR.png", 44, 32))
       .appendField(" ")
       .appendField(new Blockly.FieldTextInput('ir_item'), 'VAR');
     this.appendValueInput("PIN", Number)
@@ -201,30 +252,30 @@ Blockly.Blocks.yf_ir_recv = {
 
 //红外mini遥控器键值
 var YF_IR_VAL = [
-  [{ 'src': '../../media/yfrobot/yf_ir_val/yf_ir_pow.png', 'width': 32, 'height': 32 }, '0xFFA25D'],
-  [{ 'src': '../../media/yfrobot/yf_ir_val/yf_ir_menu.png', 'width': 32, 'height': 32 }, '0xFFE21D'],
-  [{ 'src': '../../media/yfrobot/yf_ir_val/yf_ir_test.png', 'width': 32, 'height': 32 }, '0xFF22DD'],
-  [{ 'src': '../../media/yfrobot/yf_ir_val/yf_ir_+.png', 'width': 32, 'height': 32 }, '0xFF02FD'],
-  [{ 'src': '../../media/yfrobot/yf_ir_val/yf_ir_back.png', 'width': 32, 'height': 32 }, '0xFFC23D'],
-  [{ 'src': '../../media/yfrobot/yf_ir_val/yf_ir_rewind.png', 'width': 32, 'height': 32 }, '0xFFE01F'],
-  [{ 'src': '../../media/yfrobot/yf_ir_val/yf_ir_play.png', 'width': 32, 'height': 32 }, '0xFFA857'],
-  [{ 'src': '../../media/yfrobot/yf_ir_val/yf_ir_fastForward.png', 'width': 32, 'height': 32 }, '0xFF906F'],
-  [{ 'src': '../../media/yfrobot/yf_ir_val/yf_ir_0.png', 'width': 32, 'height': 32 }, '0xFF6897'],
-  [{ 'src': '../../media/yfrobot/yf_ir_val/yf_ir_-.png', 'width': 32, 'height': 32 }, '0xFF9867'],
-  [{ 'src': '../../media/yfrobot/yf_ir_val/yf_ir_c.png', 'width': 32, 'height': 32 }, '0xFFB04F'],
-  [{ 'src': '../../media/yfrobot/yf_ir_val/yf_ir_1.png', 'width': 32, 'height': 32 }, '0xFF30CF'],
-  [{ 'src': '../../media/yfrobot/yf_ir_val/yf_ir_2.png', 'width': 32, 'height': 32 }, '0xFF18E7'],
-  [{ 'src': '../../media/yfrobot/yf_ir_val/yf_ir_3.png', 'width': 32, 'height': 32 }, '0xFF7A85'],
-  [{ 'src': '../../media/yfrobot/yf_ir_val/yf_ir_4.png', 'width': 32, 'height': 32 }, '0xFF10EF'],
-  [{ 'src': '../../media/yfrobot/yf_ir_val/yf_ir_5.png', 'width': 32, 'height': 32 }, '0xFF38C7'],
-  [{ 'src': '../../media/yfrobot/yf_ir_val/yf_ir_6.png', 'width': 32, 'height': 32 }, '0xFF5AA5'],
-  [{ 'src': '../../media/yfrobot/yf_ir_val/yf_ir_7.png', 'width': 32, 'height': 32 }, '0xFF42BD'],
-  [{ 'src': '../../media/yfrobot/yf_ir_val/yf_ir_8.png', 'width': 32, 'height': 32 }, '0xFF4AB5'],
-  [{ 'src': '../../media/yfrobot/yf_ir_val/yf_ir_9.png', 'width': 32, 'height': 32 }, '0xFF52AD'],
+  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_pow.png', 'width': 32, 'height': 32 }, '0xFFA25D'],
+  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_menu.png', 'width': 32, 'height': 32 }, '0xFFE21D'],
+  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_test.png', 'width': 32, 'height': 32 }, '0xFF22DD'],
+  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_+.png', 'width': 32, 'height': 32 }, '0xFF02FD'],
+  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_back.png', 'width': 32, 'height': 32 }, '0xFFC23D'],
+  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_rewind.png', 'width': 32, 'height': 32 }, '0xFFE01F'],
+  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_play.png', 'width': 32, 'height': 32 }, '0xFFA857'],
+  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_fastForward.png', 'width': 32, 'height': 32 }, '0xFF906F'],
+  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_0.png', 'width': 32, 'height': 32 }, '0xFF6897'],
+  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_-.png', 'width': 32, 'height': 32 }, '0xFF9867'],
+  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_c.png', 'width': 32, 'height': 32 }, '0xFFB04F'],
+  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_1.png', 'width': 32, 'height': 32 }, '0xFF30CF'],
+  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_2.png', 'width': 32, 'height': 32 }, '0xFF18E7'],
+  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_3.png', 'width': 32, 'height': 32 }, '0xFF7A85'],
+  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_4.png', 'width': 32, 'height': 32 }, '0xFF10EF'],
+  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_5.png', 'width': 32, 'height': 32 }, '0xFF38C7'],
+  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_6.png', 'width': 32, 'height': 32 }, '0xFF5AA5'],
+  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_7.png', 'width': 32, 'height': 32 }, '0xFF42BD'],
+  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_8.png', 'width': 32, 'height': 32 }, '0xFF4AB5'],
+  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_9.png', 'width': 32, 'height': 32 }, '0xFF52AD'],
 ];
 Blockly.Blocks.yf_ir_val = {
   init: function() {
-    this.setColour(Blockly.qhColour.PS2);
+    this.setColour(Blockly.qhColour.REMOTE_CTL);
     this.appendDummyInput()
       .appendField(Blockly.MIXLY_YF_IR_VAL)
       .appendField(new Blockly.FieldDropdown(YF_IR_VAL), 'VAL');
@@ -236,7 +287,7 @@ Blockly.Blocks.yf_ir_val = {
 // PS2 Controller init
 Blockly.Blocks.yf_ps2_init = {
   init: function() {
-    this.setColour(Blockly.qhColour.PS2);
+    this.setColour(Blockly.qhColour.REMOTE_CTL);
     this.appendDummyInput("")
       .appendField(Blockly.MIXLY_YF_PS2)
       .appendField(new Blockly.FieldImage("../../media/qheduino/yf_ps2x.png", 60, 37))
@@ -286,7 +337,7 @@ const MIXLY_YF_PS2_BTN_STA = [
 
 // PS2 Controller button 
 defineBlock('yf_ps2_btn', function() {
-  this.setColour(Blockly.qhColour.PS2);
+  this.setColour(Blockly.qhColour.REMOTE_CTL);
   this.appendDummyInput("")
     .appendField(Blockly.MIXLY_YF_PS2_BUTTON)
     .appendField(new Blockly.FieldImage("../../media/qheduino/yf_ps2x.png", 60, 37))
@@ -308,7 +359,7 @@ const MIXLY_YF_PS2_ROCKER_STA = [
 
 // PS2 Controller Rocker
 defineBlock('yf_ps2_rocker', function() {
-  this.setColour(Blockly.qhColour.PS2);
+  this.setColour(Blockly.qhColour.REMOTE_CTL);
   this.appendDummyInput("")
     .appendField(Blockly.MIXLY_YF_PS2_ROCKER)
     .appendField(new Blockly.FieldImage("../../media/qheduino/yf_ps2x.png", 60, 37))
@@ -336,7 +387,7 @@ const MIXLY_YF_PS2_A_BTN = [
 
 // PS2 Controller read analog value of the button  --- how hard you press the button
 defineBlock('yf_ps2_a_btn', function() {
-  this.setColour(Blockly.qhColour.PS2);
+  this.setColour(Blockly.qhColour.REMOTE_CTL);
   this.appendDummyInput("")
     .appendField(Blockly.MIXLY_YF_PS2_A_BUTTON)
     .appendField(new Blockly.FieldImage("../../media/qheduino/yf_ps2x.png", 60, 37))
@@ -348,10 +399,10 @@ defineBlock('yf_ps2_a_btn', function() {
 
 // PS2 Controller read controller and setmotor
 defineBlock('yf_ps2_readController_setMotor', function() {
-  this.setColour(Blockly.qhColour.PS2);
+  this.setColour(Blockly.qhColour.REMOTE_CTL);
   this.appendDummyInput("")
     .appendField(Blockly.MIXLY_YF_PS2)
-    .appendField(new Blockly.FieldImage("../../media/yfrobot/yf_ps2x.png", 60, 37))
+    .appendField(new Blockly.FieldImage("../../media/qheduino/yf_ps2x.png", 60, 37))
     .appendField(Blockly.MIXLY_YF_PS2_R_MOTOR)
     .appendField("MOTOR1")
     .appendField(new Blockly.FieldDropdown([
@@ -364,4 +415,31 @@ defineBlock('yf_ps2_readController_setMotor', function() {
   this.setInputsInline(true);
   this.setPreviousStatement(true, null);
   this.setNextStatement(true, null);
+});
+
+// 蓝牙是否有可读数据
+defineBlock('qh_bluetooth_available', function() {
+  this.setColour(Blockly.qhColour.REMOTE_CTL);
+  this.appendDummyInput()
+    .appendField(Blockly.QH_BLUETOOTH_AVAILABLE);
+  this.setOutput(true, Boolean);
+  this.setTooltip(Blockly.QH_BLUETOOTH_AVAILABLE);
+});
+
+// 蓝牙读取字符串
+defineBlock('qh_bluetooth_readstr', function() {
+  this.setColour(Blockly.qhColour.REMOTE_CTL);
+  this.appendDummyInput()
+    .appendField(Blockly.QH_BLUETOOTH_READ_STRING);
+  this.setOutput(true, String);
+  this.setTooltip(Blockly.QH_BLUETOOTH_READ_STRING);
+});
+
+// 蓝牙读取字符串
+defineBlock('qh_bluetooth_read_data', function() {
+  this.setColour(Blockly.qhColour.REMOTE_CTL);
+  this.appendDummyInput()
+    .appendField(Blockly.QH_BLUETOOTH_READ_DATA);
+  this.setOutput(true, String);
+  this.setTooltip(Blockly.QH_BLUETOOTH_READ_DATA);
 });

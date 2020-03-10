@@ -11,7 +11,7 @@
 <script type = "text/javascript" src = "../../generators/arduino/company/qhMixlyExtension.js"></script>
 <category id = "qheduino" name = "qheduino" colour = "#4169E1">
   <category id = "qh_intelligentCar" name = "智能小车" colour = "#00CED1">
-    <category id = "qh_model" name = "模块" colour = "#2E8B57">
+    <category id = "qh_model" name = "基础模块" colour = "#2E8B57">
       <block type = "qh_ultrasonic_ranging"></block>
       <block type = "qh_servo_angle">
         <value name = "angle">
@@ -20,8 +20,36 @@
           </shadow>    
         </value>
       </block>
+      <block type="qh_ir_evading">
+        <value name="PIN">
+            <shadow type="pins_digital"></shadow>
+        </value>
+      </block>
+      <block type="qh_ir_tracking">
+        <value name="PIN">
+            <shadow type="pins_digital"></shadow>
+        </value>
+      </block>
+      <block type="qh_light_seeking">
+        <value name="PIN">
+            <shadow type="pins_digital"></shadow>
+        </value>
+      </block>
+      <block type="qh_voltage_measurement">
+        <value name="PIN">
+            <shadow type="pins_digital"></shadow>
+        </value>
+      </block>
+      <block type="qh_buzzer">
+        <value name="PIN">
+            <shadow type="pins_digital"></shadow>
+        </value>
+        <value name="STAT">
+          <shadow type="inout_highlow"></shadow>
+        </value>
+      </block>
     </category>
-    <category id = "qh_light" name = "灯光实验" colour = "#AFEEEE">
+    <category id = "qh_light" name = "灯光控制" colour = "#AFEEEE">
       <block type = "qh_indicator_light"></block>
       <block type = "qh_rgb_light"></block>
       <block type = "qh_random_rgb"></block>
@@ -158,6 +186,9 @@
       <block type="yf_ps2_rocker"></block>
     <!--PS2 Controller read analog value of the button-->
       <block type="yf_ps2_a_btn"></block>
+      <block type="qh_bluetooth_available"></block>
+      <block type="qh_bluetooth_readstr"></block>
+      <block type="qh_bluetooth_read_data"></block>
     </category>
   </category>
 </category>
