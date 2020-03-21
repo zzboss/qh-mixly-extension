@@ -7,10 +7,13 @@ Blockly.QH_RGB_LIGHT_G = 'G:';
 Blockly.QH_RGB_LIGHT_B = 'B:';
 Blockly.QH_TOOLTIP_RGB_LIGHT = 'Choose rgb to combinate light';
 Blockly.QH_RGB_RANDOM = 'Random rgb light';
+Blockly.QH_RGB_CONTROL = 'RGB control';
+Blockly.QH_TOOLTIP_RGB_CONTROL = 'set the value for rgb to control the light';
 
 // 模块相关常量
 Blockly.QH_TOOLTIP_RGB_RANDOM = 'Create a random rgb';
 Blockly.QH_ULTRASONIC_RANGING = 'Ultrasonic ranging';
+Blockly.QH_RGB_ULTRASONIC = 'RGB Ultrasonic ranging';
 Blockly.QH_TOOLTIP_ULTRASONIC_RANGING = 'Ultrasonic ranging';
 Blockly.QH_SERVO_ANGLE = 'Ratate:';
 Blockly.QH_SERVO_ANGLE_UNIT = 'Degree';

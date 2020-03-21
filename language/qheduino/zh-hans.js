@@ -8,9 +8,12 @@ Blockly.QH_RGB_LIGHT_B = 'B:';
 Blockly.QH_TOOLTIP_RGB_LIGHT = '通过选择rgb开关组合灯光';
 Blockly.QH_RGB_RANDOM = '随机rgb灯光';
 Blockly.QH_TOOLTIP_RGB_RANDOM = '生成随机rgb灯光';
+Blockly.QH_RGB_CONTROL = 'RGB灯光值';
+Blockly.QH_TOOLTIP_RGB_CONTROL = '通过输入rgb值控制灯光颜色';
 
 // 基础模块相关常量
 Blockly.QH_ULTRASONIC_RANGING = '超声波测距';
+Blockly.QH_RGB_ULTRASONIC = 'RGB超声波测距';
 Blockly.QH_TOOLTIP_ULTRASONIC_RANGING = '块返回超声波测距的距离值';
 Blockly.QH_SERVO_ANGLE = '舵机转动';
 Blockly.QH_SERVO_ANGLE_UNIT = '度';

@@ -13,6 +13,7 @@
   <category id = "qh_intelligentCar" name = "智能小车" colour = "#00CED1">
     <category id = "qh_model" name = "基础模块" colour = "#2E8B57">
       <block type = "qh_ultrasonic_ranging"></block>
+      <block type = "qh_rgb_ultrasonic"></block>
       <block type = "qh_servo_angle">
         <value name = "angle">
           <shadow type = "math_number">
@@ -53,6 +54,23 @@
       <block type = "qh_indicator_light"></block>
       <block type = "qh_rgb_light"></block>
       <block type = "qh_random_rgb"></block>
+      <block type = "qh_rgb_control">
+        <value name = "R">
+          <shadow type = "math_number">
+              <field name = "NUM">0</field>
+          </shadow>    
+        </value>
+        <value name = "G">
+          <shadow type = "math_number">
+              <field name = "NUM">0</field>
+          </shadow>    
+        </value>
+        <value name = "B">
+          <shadow type = "math_number">
+              <field name = "NUM">0</field>
+          </shadow>    
+        </value>
+      </block>
     </category>
     <category id = "qh_car_motion" name = "运动控制" colour = "#FFB6C1">
       <block type = "qh_car_base_motion">

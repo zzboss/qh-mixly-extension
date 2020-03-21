@@ -44,14 +44,14 @@ function defineBlockGenerator(name, func) {
  * @param {String} libName 引入的库名称
  */
 function defineInclude(key, libName) {
-  Blockly.Arduino.definitions_[key] = '#include "' + libName + '"';
+  Blockly.Arduino.definitions_[key] = '#include "' + libName + '.h"';
 }
 
 /**
  * 引入沁和库文件
  */
 function importQH() {
-  defineInclude('qh_include_qheduino', 'qheduino.h');
+  defineInclude('qh_include_qheduino', 'qheduino');
 }
 
 /**
@@ -61,6 +61,28 @@ function importQH() {
  */
 function defineVariable(key, code) {
   Blockly.Arduino.definitions_[key] = code + ';';
+}
+
+/**
+ * 获取输入的数字值
+ * @param {String} key 变量名
+ */
+function getNumberValue(target, key) {
+  let value = Blockly.Arduino.valueToCode(target, key, Blockly.Arduino.ORDER_ATOMIC);
+  if (value.startsWith('(-')) {
+    value = value.substring(1, value.indexOf(')'));
+  }
+  return parseInt(value);
+}
+
+/**
+ * 输入值限制在指定范围内，超出则返回边界值
+ * @param {Number} val 输入值
+ * @param {Number} min 下限
+ * @param {Number} max 上限
+ */
+function limit(val, min, max) {
+  return val > max ? max : (val < min ? min : val);
 }
 
 /***************************
@@ -86,6 +108,17 @@ defineBlockGenerator('qh_rgb_light', function() {
     'digitalWrite(11, ' + this.getFieldValue('B') + ');\n';
   return code;
 });
+
+// rgb 灯光值控制
+defineBlockGenerator('qh_rgb_control', function() {
+  defineInclude('qh_include_fast_led', 'FastLED');
+  defineVariable('qh_fast_led', 'CRGB leds[6]');
+  Blockly.Arduino.setups_['qh_setup_fastled'] = 'FastLED.addLeds<NEOPIXEL, 12>(leds, 6);';
+  let r = limit(getNumberValue(this, 'R'), 0, 255);
+  let g = limit(getNumberValue(this, 'G'), 0, 255);
+  let b = limit(getNumberValue(this, 'B'), 0, 255);
+  return `LEDS.showColor(CRGB(${r}, ${g}, ${b}));\n`;
+})
 
 // 随机RGB灯光 : r-10 g-9 b-11
 defineBlockGenerator('qh_random_rgb', function() {
@@ -146,16 +179,33 @@ createDigitalWriteGenerator('qh_buzzer');
 
 // 超声波测距
 defineBlockGenerator('qh_ultrasonic_ranging', function() {
-  defineInclude('qh_include_qheduino', 'qheduino.h');
-  defineVariable('qh_variable_SR04_13_12', 'SR04 SR04_13_12(13,12)');
+  importQH();
   let code = 'SR04_13_12.DistanceAvg()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
+});
+
+// rgb超声波测距
+defineBlockGenerator('qh_rgb_ultrasonic', function() {
+  Blockly.Arduino.setups_['qh_serial_begin'] = 'Serial.begin(115200);';
+  let code =
+    `float getDistance(){
+  pinMode(13, OUTPUT); 
+  digitalWrite(13, LOW);  
+  delayMicroseconds(2);         
+  digitalWrite(13, HIGH);  
+  delayMicroseconds(10);        
+  digitalWrite(13, LOW);   
+  pinMode(13, INPUT); 
+  return pulseIn(13, HIGH);
+}`;
+  Blockly.Arduino.definitions_['qh_rgb_getDistance'] = code;
+  return ['qh_rgb_getDistance()', Blockly.Arduino.ORDER_ATOMIC];
 });
 
 // 舵机转动
 defineBlockGenerator('qh_servo_angle', function() {
   let angle = Blockly.Arduino.valueToCode(this, 'angle', Blockly.Arduino.ORDER_ATOMIC) || 90;
-  defineInclude('qh_servo_angle', 'Servo.h');
+  defineInclude('qh_servo_angle', 'Servo');
   defineVariable('qh_servo', 'Servo myservo');
   Blockly.Arduino.setups_['qh_attach_pin'] = 'myservo.attach(3);';
   let code = 'myservo.write(' + angle + ');\n';
@@ -164,7 +214,7 @@ defineBlockGenerator('qh_servo_angle', function() {
 
 // 小车运动控制
 defineBlockGenerator('qh_car_base_motion', function() {
-  defineInclude('qh_include_qheduino', 'qheduino.h');
+  importQH();
   let direction = this.getFieldValue('direction');
   let velocity = Blockly.Arduino.valueToCode(this, 'power', Blockly.Arduino.ORDER_ATOMIC);
   defineVariable('qh_car', 'CAR car(7,8,6,2,4,5)');

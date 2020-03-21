@@ -44,6 +44,13 @@ function defineBlock(blockName, initFunc) {
       this.setNextStatement(true, null);
       this.setInputsInline(true);
       this.setTooltip(tooltip);
+    },
+    appendNumberInput: function(name) {
+      let input = this.appendValueInput(name)
+        .setCheck(Number);
+      for (let i = 1; i < arguments.length; i++) {
+        input.appendField(arguments[i]);
+      }
     }
   }
 }
@@ -75,6 +82,15 @@ defineBlock('qh_rgb_light', function() {
   this.setDefault(Blockly.QH_TOOLTIP_RGB_LIGHT);
 });
 
+// RGB 灯光值控制
+defineBlock('qh_rgb_control', function() {
+  this.setColour(Blockly.Blocks.base.HUE);
+  this.appendNumberInput('R', Blockly.QH_RGB_CONTROL, Blockly.QH_RGB_LIGHT_R);
+  this.appendNumberInput('G', Blockly.QH_RGB_LIGHT_G);
+  this.appendNumberInput('B', Blockly.QH_RGB_LIGHT_B);
+  this.setDefault(Blockly.QH_TOOLTIP_RGB_CONTROL);
+})
+
 // 随机rgb灯光
 defineBlock('qh_random_rgb', function() {
   this.setColour(Blockly.Blocks.base.HUE);
@@ -95,6 +111,16 @@ defineBlock('qh_ultrasonic_ranging', function() {
   this.setOutput(true, Number);
   this.setInputsInline(true);
   this.setTooltip(Blockly.QH_TOOLTIP_ULTRASONIC_RANGING);
+});
+
+// rgb 超声波测距
+defineBlock('qh_rgb_ultrasonic', function() {
+  this.setColour(Blockly.qhColour.MODEL);
+  this.appendDummyInput('')
+    .appendField(Blockly.QH_RGB_ULTRASONIC);
+  this.setOutput(true, Number);
+  this.setInputsInline(true);
+  this.setTooltip(Blockly.QH_RGB_ULTRASONIC);
 });
 
 // 舵机转动
