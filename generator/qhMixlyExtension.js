@@ -63,28 +63,6 @@ function defineVariable(key, code) {
   Blockly.Arduino.definitions_[key] = code + ';';
 }
 
-/**
- * 获取输入的数字值
- * @param {String} key 变量名
- */
-function getNumberValue(target, key) {
-  let value = Blockly.Arduino.valueToCode(target, key, Blockly.Arduino.ORDER_ATOMIC);
-  if (value.startsWith('(-')) {
-    value = value.substring(1, value.indexOf(')'));
-  }
-  return parseInt(value);
-}
-
-/**
- * 输入值限制在指定范围内，超出则返回边界值
- * @param {Number} val 输入值
- * @param {Number} min 下限
- * @param {Number} max 上限
- */
-function limit(val, min, max) {
-  return val > max ? max : (val < min ? min : val);
-}
-
 /***************************
  * 灯光控制
  **************************/
@@ -114,9 +92,9 @@ defineBlockGenerator('qh_rgb_control', function() {
   defineInclude('qh_include_fast_led', 'FastLED');
   defineVariable('qh_fast_led', 'CRGB leds[6]');
   Blockly.Arduino.setups_['qh_setup_fastled'] = 'FastLED.addLeds<NEOPIXEL, 12>(leds, 6);';
-  let r = limit(getNumberValue(this, 'R'), 0, 255);
-  let g = limit(getNumberValue(this, 'G'), 0, 255);
-  let b = limit(getNumberValue(this, 'B'), 0, 255);
+  let r = Blockly.Arduino.valueToCode(this, 'R', Blockly.Arduino.ORDER_ATOMIC);
+  let g = Blockly.Arduino.valueToCode(this, 'G', Blockly.Arduino.ORDER_ATOMIC);
+  let b = Blockly.Arduino.valueToCode(this, 'B', Blockly.Arduino.ORDER_ATOMIC);
   return `LEDS.showColor(CRGB(${r}, ${g}, ${b}));\n`;
 })
 
