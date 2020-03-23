@@ -63,6 +63,23 @@ function defineVariable(key, code) {
   Blockly.Arduino.definitions_[key] = code + ';';
 }
 
+/**
+ * 
+ * @param {String} key setup 定义所需键
+ * @param {String} code 设置部分的一行代码
+ */
+function defineSetUp(key, code) {
+  Blockly.Arduino.setups_[key] = code + ';';
+}
+
+/**
+ * 获取接入块的返回值，需要配合call/apply改变this指向
+ * @param {String} key code变量名 
+ */
+function qhValueToCode(key) {
+  return Blockly.Arduino.valueToCode(this, key, Blockly.Arduino.ORDER_ATOMIC);
+}
+
 /***************************
  * 灯光控制
  **************************/
@@ -91,10 +108,10 @@ defineBlockGenerator('qh_rgb_light', function() {
 defineBlockGenerator('qh_rgb_control', function() {
   defineInclude('qh_include_fast_led', 'FastLED');
   defineVariable('qh_fast_led', 'CRGB leds[6]');
-  Blockly.Arduino.setups_['qh_setup_fastled'] = 'FastLED.addLeds<NEOPIXEL, 12>(leds, 6);';
-  let r = Blockly.Arduino.valueToCode(this, 'R', Blockly.Arduino.ORDER_ATOMIC);
-  let g = Blockly.Arduino.valueToCode(this, 'G', Blockly.Arduino.ORDER_ATOMIC);
-  let b = Blockly.Arduino.valueToCode(this, 'B', Blockly.Arduino.ORDER_ATOMIC);
+  defineSetUp('qh_setup_fastled', 'FastLED.addLeds<NEOPIXEL, 12>(leds, 6)');
+  let r = qhValueToCode.call(this, 'R');
+  let g = qhValueToCode.call(this, 'G');
+  let b = qhValueToCode.call(this, 'B');
   return `LEDS.showColor(CRGB(${r}, ${g}, ${b}));\n`;
 })
 
@@ -105,7 +122,7 @@ defineBlockGenerator('qh_random_rgb', function() {
     [10, OUTPUT],
     [11, OUTPUT]
   ]);
-  Blockly.Arduino.setups_['random_seed'] = 'randomSeed(analogRead(0));';
+  defineSetUp('random_seed', 'randomSeed(analogRead(0))');
 
   let code = 'digitalWrite(9, random(0,2));\n' +
     'digitalWrite(10, random(0,2));\n' +
@@ -122,8 +139,8 @@ defineBlockGenerator('qh_random_rgb', function() {
  */
 function createDigitalReadGenerator(name) {
   defineBlockGenerator(name, function() {
-    var dropdown_pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_ATOMIC);
-    Blockly.Arduino.setups_['setup_input_' + dropdown_pin] = 'pinMode(' + dropdown_pin + ', INPUT);';
+    var dropdown_pin = qhValueToCode.call(this, 'PIN');
+    defineSetUp('setup_input_' + dropdown_pin, 'pinMode(' + dropdown_pin + ', INPUT)');
     var code = 'digitalRead(' + dropdown_pin + ')';
     return [code, Blockly.Arduino.ORDER_ATOMIC];
   });
@@ -135,9 +152,9 @@ function createDigitalReadGenerator(name) {
  */
 function createDigitalWriteGenerator(name) {
   defineBlockGenerator(name, function() {
-    var dropdown_pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_ATOMIC);
-    var dropdown_stat = Blockly.Arduino.valueToCode(this, 'STAT', Blockly.Arduino.ORDER_ATOMIC);
-    Blockly.Arduino.setups_['setup_output_' + dropdown_pin] = 'pinMode(' + dropdown_pin + ', OUTPUT);';
+    var dropdown_pin = qhValueToCode.call(this, 'PIN');
+    var dropdown_stat = qhValueToCode.call(this, 'STAT');
+    defineSetUp('setup_output_' + dropdown_pin, 'pinMode(' + dropdown_pin + ', OUTPUT)');
     var code = 'digitalWrite(' + dropdown_pin + ',' + dropdown_stat + ');\n'
     return code;
   });
@@ -165,7 +182,7 @@ defineBlockGenerator('qh_ultrasonic_ranging', function() {
 
 // rgb超声波测距
 defineBlockGenerator('qh_rgb_ultrasonic', function() {
-  Blockly.Arduino.setups_['qh_serial_begin'] = 'Serial.begin(115200);';
+  defineSetUp('qh_serial_begin', 'Serial.begin(115200)');
   let code =
     `float qh_rgb_getDistance(){
   pinMode(13, OUTPUT); 
@@ -177,16 +194,16 @@ defineBlockGenerator('qh_rgb_ultrasonic', function() {
   pinMode(13, INPUT); 
   return pulseIn(13, HIGH);
 }`;
-  Blockly.Arduino.definitions_['qh_rgb_getDistance'] = code;
+  defineVariable('qh_rgb_getDistance', code);
   return ['qh_rgb_getDistance()', Blockly.Arduino.ORDER_ATOMIC];
 });
 
 // 舵机转动
 defineBlockGenerator('qh_servo_angle', function() {
-  let angle = Blockly.Arduino.valueToCode(this, 'angle', Blockly.Arduino.ORDER_ATOMIC) || 90;
+  let angle = qhValueToCode.call(this, 'angle') || 90;
   defineInclude('qh_servo_angle', 'Servo');
   defineVariable('qh_servo', 'Servo myservo');
-  Blockly.Arduino.setups_['qh_attach_pin'] = 'myservo.attach(3);';
+  defineSetUp('qh_attach_pin', 'myservo.attach(3)');
   let code = 'myservo.write(' + angle + ');\n';
   return code;
 });
@@ -195,7 +212,7 @@ defineBlockGenerator('qh_servo_angle', function() {
 defineBlockGenerator('qh_car_base_motion', function() {
   importQH();
   let direction = this.getFieldValue('direction');
-  let velocity = Blockly.Arduino.valueToCode(this, 'power', Blockly.Arduino.ORDER_ATOMIC);
+  let velocity = qhValueToCode.call(this, 'power');
   defineVariable('qh_car', 'CAR car(7,8,6,2,4,5)');
   let code = 'car.direction_speed_ctrl(' + direction + ', ' + velocity + ');\n';
   return code;
@@ -206,8 +223,8 @@ function defineCarControlBlockGenerator(name) {
   defineBlockGenerator(name, function() {
     importQH();
     let direction = this.getQhValue('direction');
-    let power = Blockly.Arduino.valueToCode(this, 'power', Blockly.Arduino.ORDER_ATOMIC);
-    let secs = Blockly.Arduino.valueToCode(this, 'secs', Blockly.Arduino.ORDER_ATOMIC);
+    let power = qhValueToCode.call(this, 'power');
+    let secs = qhValueToCode.call(this, 'secs');
     defineVariable('qh_car', 'CAR car(7,8,6,2,4,5)');
     let code = 'car.direction_speed_ctrl(' + direction + ', ' + power + ');\n' +
       'delay(' + (parseInt(secs) * 1000) + ');\n';
