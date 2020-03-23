@@ -180,6 +180,7 @@ createDigitalWriteGenerator('qh_buzzer');
 // 超声波测距
 defineBlockGenerator('qh_ultrasonic_ranging', function() {
   importQH();
+  defineVariable('qh_sr04_13_12', 'SR04 SR04_13_12(13,12)');
   let code = 'SR04_13_12.DistanceAvg()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 });
@@ -188,7 +189,7 @@ defineBlockGenerator('qh_ultrasonic_ranging', function() {
 defineBlockGenerator('qh_rgb_ultrasonic', function() {
   Blockly.Arduino.setups_['qh_serial_begin'] = 'Serial.begin(115200);';
   let code =
-    `float getDistance(){
+    `float qh_rgb_getDistance(){
   pinMode(13, OUTPUT); 
   digitalWrite(13, LOW);  
   delayMicroseconds(2);         

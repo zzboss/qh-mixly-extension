@@ -82,15 +82,6 @@ defineBlock('qh_rgb_light', function() {
   this.setDefault(Blockly.QH_TOOLTIP_RGB_LIGHT);
 });
 
-// RGB 灯光值控制
-defineBlock('qh_rgb_control', function() {
-  this.setColour(Blockly.Blocks.base.HUE);
-  this.appendNumberInput('R', Blockly.QH_RGB_CONTROL, Blockly.QH_RGB_LIGHT_R);
-  this.appendNumberInput('G', Blockly.QH_RGB_LIGHT_G);
-  this.appendNumberInput('B', Blockly.QH_RGB_LIGHT_B);
-  this.setDefault(Blockly.QH_TOOLTIP_RGB_CONTROL);
-})
-
 // 随机rgb灯光
 defineBlock('qh_random_rgb', function() {
   this.setColour(Blockly.Blocks.base.HUE);
@@ -122,6 +113,15 @@ defineBlock('qh_rgb_ultrasonic', function() {
   this.setInputsInline(true);
   this.setTooltip(Blockly.QH_RGB_ULTRASONIC);
 });
+
+// RGB 超声波灯光值控制
+defineBlock('qh_rgb_control', function() {
+  this.setColour(Blockly.qhColour.MODEL);
+  this.appendNumberInput('R', Blockly.QH_RGB_CONTROL, Blockly.QH_RGB_LIGHT_R);
+  this.appendNumberInput('G', Blockly.QH_RGB_LIGHT_G);
+  this.appendNumberInput('B', Blockly.QH_RGB_LIGHT_B);
+  this.setDefault(Blockly.QH_TOOLTIP_RGB_CONTROL);
+})
 
 // 舵机转动
 defineBlock('qh_servo_angle', function() {
