@@ -70,15 +70,19 @@ defineBlock('qh_indicator_light', function() {
 
 // RGB 灯控制
 defineBlock('qh_rgb_light', function() {
+  const item = [
+    [Blockly.MIXLY_ON, "LOW"],
+    [Blockly.MIXLY_OFF, "HIGH"]
+  ];
   this.setColour(Blockly.Blocks.base.HUE);
   this.appendDummyInput('')
     .appendField(Blockly.QH_RGB_LIGHT_CHOOSE)
     .appendField(Blockly.QH_RGB_LIGHT_R)
-    .appendField(createHightLowDropdwon(), 'R')
+    .appendField(createDropDown(item), 'R')
     .appendField(Blockly.QH_RGB_LIGHT_G)
-    .appendField(createHightLowDropdwon(), 'G')
+    .appendField(createDropDown(item), 'G')
     .appendField(Blockly.QH_RGB_LIGHT_B)
-    .appendField(createHightLowDropdwon(), 'B')
+    .appendField(createDropDown(item), 'B')
   this.setDefault(Blockly.QH_TOOLTIP_RGB_LIGHT);
 });
 

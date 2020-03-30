@@ -98,9 +98,9 @@ defineBlockGenerator('qh_rgb_light', function() {
     [9, OUTPUT],
     [11, OUTPUT]
   ]);
-  let code = 'digitalWrite(10, ' + this.getFieldValue('R') + ');\n' +
-    'digitalWrite(9, ' + this.getFieldValue('G') + ');\n' +
-    'digitalWrite(11, ' + this.getFieldValue('B') + ');\n';
+  let code = `digitalWrite(10, ${this.getFieldValue('R')});
+digitalWrite(9, ${this.getFieldValue('G')}); 
+digitalWrite(11, ' + this.getFieldValue('B') + ');`;
   return code;
 });
 
