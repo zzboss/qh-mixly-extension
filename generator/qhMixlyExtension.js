@@ -215,7 +215,7 @@ defineBlockGenerator('qh_car_base_motion', function() {
   importQH();
   let direction = this.getFieldValue('direction');
   let velocity = qhValueToCode.call(this, 'power');
-  defineVariable('qh_car', 'CAR car(7,8,6,2,4,5)');
+  defineVariable('qh_car', 'CAR car(8,7,6,2,4,5)');
   let code = 'car.direction_speed_ctrl(' + direction + ', ' + velocity + ');\n';
   return code;
 });
@@ -227,7 +227,7 @@ function defineCarControlBlockGenerator(name) {
     let direction = this.getQhValue('direction');
     let power = qhValueToCode.call(this, 'power');
     let secs = qhValueToCode.call(this, 'secs');
-    defineVariable('qh_car', 'CAR car(7,8,6,2,4,5)');
+    defineVariable('qh_car', 'CAR car(8,7,6,2,4,5)');
     let code = 'car.direction_speed_ctrl(' + direction + ', ' + power + ');\n' +
       'delay(' + (parseInt(secs) * 1000) + ');\n';
     return code;
@@ -244,7 +244,7 @@ defineCarControlBlockGenerator('qh_car_spin_right');
 // 小车停止运动
 defineBlockGenerator('qh_car_pause', function() {
   importQH();
-  defineVariable('qh_car', 'CAR car(7,8,6,2,4,5)');
+  defineVariable('qh_car', 'CAR car(8,7,6,2,4,5)');
   return 'car.direction_speed_ctrl(0, 0);\n'
 });
 
