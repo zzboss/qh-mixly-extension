@@ -66,6 +66,11 @@
           <shadow type="inout_highlow"></shadow>
         </value>
       </block>
+      <block type = "qh_control_key">
+        <value name="PIN">
+          <shadow type="pins_digital"></shadow>
+      </value>
+      </block>
     </category>
     <category id = "qh_light" name = "灯光控制" colour = "#AFEEEE">
       <block type = "qh_indicator_light"></block>

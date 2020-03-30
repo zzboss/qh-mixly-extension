@@ -23,7 +23,7 @@ Blockly.QH_IR_TRACKING = '红外循迹';
 Blockly.QH_LIGHT_SEEKING = '寻光';
 Blockly.QH_VOLTAGE_MEASUREMENT = '电压测量';
 Blockly.QH_BUZZER = '蜂鸣器';
-
+Blockly.QH_CONTROL_KEY = '控制按键';
 // 小车运动相关常量
 Blockly.QH_CAR_DIRECTION = '运动方向:';
 Blockly.QH_TURN_LEFT = '左转';

@@ -168,6 +168,8 @@ createDigitalReadGenerator('qh_ir_tracking');
 createDigitalReadGenerator('qh_light_seeking');
 // 电压测量
 createDigitalReadGenerator('qh_voltage_measurement');
+// 控制按键
+createDigitalReadGenerator('qh_control_key');
 // 蜂鸣器
 createDigitalWriteGenerator('qh_buzzer');
 

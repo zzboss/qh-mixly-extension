@@ -23,6 +23,7 @@ Blockly.QH_IR_TRACKING = 'Ir Tracking';
 Blockly.QH_LIGHT_SEEKING = 'Light-Seeking';
 Blockly.QH_VOLTAGE_MEASUREMENT = 'Voltage measurement';
 Blockly.QH_BUZZER = 'Buzzer';
+Blockly.QH_CONTROL_KEY = 'control-key';
 
 // 小车运动相关常量
 Blockly.QH_CAR_DIRECTION = 'Direction tuning:'

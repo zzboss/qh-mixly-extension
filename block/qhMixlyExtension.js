@@ -187,6 +187,8 @@ createDigitalReadBlock('qh_light_seeking', Blockly.QH_LIGHT_SEEKING);
 createDigitalReadBlock('qh_voltage_measurement', Blockly.QH_VOLTAGE_MEASUREMENT);
 // 蜂鸣器
 createDigitalWriteBlock('qh_buzzer', Blockly.QH_BUZZER);
+// 按键控制
+createDigitalReadBlock('qh_control_key', Blockly.QH_CONTROL_KEY);
 
 
 
