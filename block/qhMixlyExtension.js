@@ -203,7 +203,7 @@ defineBlock('qh_car_base_motion', function() {
     [Blockly.QH_BACKWARD, '2'],
     [Blockly.QH_TURN_LEFT, '3'],
     [Blockly.QH_TURN_RIGHT, '4'],
-    [Blockly.QH_SPIN_RIGHT, '5'],
+    [Blockly.QH_SPIN_LEFT, '5'],
     [Blockly.QH_SPIN_RIGHT, '6']
   ];
   this.setColour(Blockly.qhColour.MOTION);

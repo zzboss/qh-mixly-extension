@@ -100,7 +100,7 @@ defineBlockGenerator('qh_rgb_light', function() {
   ]);
   let code = `digitalWrite(10, ${this.getFieldValue('R')});
 digitalWrite(9, ${this.getFieldValue('G')}); 
-digitalWrite(11, ' + this.getFieldValue('B') + ');`;
+digitalWrite(11,${this.getFieldValue('B')});`;
   return code;
 });
 
@@ -166,12 +166,17 @@ createDigitalReadGenerator('qh_ir_evading');
 createDigitalReadGenerator('qh_ir_tracking');
 // 寻光
 createDigitalReadGenerator('qh_light_seeking');
-// 电压测量
-createDigitalReadGenerator('qh_voltage_measurement');
 // 控制按键
 createDigitalReadGenerator('qh_control_key');
 // 蜂鸣器
 createDigitalWriteGenerator('qh_buzzer');
+// 电压测量
+defineBlockGenerator('qh_voltage_measurement', function() {
+  var dropdown_pin = qhValueToCode.call(this, 'PIN');
+  defineSetUp('setup_input_' + dropdown_pin, 'pinMode(' + dropdown_pin + ', INPUT)');
+  var code = 'analogRead(' + dropdown_pin + ')';
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+});
 
 
 // 超声波测距
