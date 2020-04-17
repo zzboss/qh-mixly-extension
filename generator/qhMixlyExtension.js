@@ -74,10 +74,11 @@ function defineSetUp(key, code) {
 
 /**
  * 获取接入块的返回值，需要配合call/apply改变this指向
+ * 优先级为ORDER_ATOMIC时可使用
  * @param {String} key code变量名 
  */
-function qhValueToCode(key) {
-  return Blockly.Arduino.valueToCode(this, key, Blockly.Arduino.ORDER_ATOMIC);
+function qhValueToCode(key, defaultVal) {
+  return Blockly.Arduino.valueToCode(this, key, Blockly.Arduino.ORDER_ATOMIC) || defaultVal;
 }
 
 /***************************
@@ -109,9 +110,9 @@ defineBlockGenerator('rgb_control', function() {
   defineInclude('include_fast_led', 'FastLED');
   defineVariable('fast_led', 'CRGB leds[6]');
   defineSetUp('setup_fastled', 'FastLED.addLeds<NEOPIXEL, 12>(leds, 6)');
-  let r = qhValueToCode.call(this, 'R');
-  let g = qhValueToCode.call(this, 'G');
-  let b = qhValueToCode.call(this, 'B');
+  let r = qhValueToCode.call(this, 'R', '0');
+  let g = qhValueToCode.call(this, 'G', '0');
+  let b = qhValueToCode.call(this, 'B', '0');
   return `LEDS.showColor(CRGB(${r}, ${g}, ${b}));\n`;
 })
 
@@ -207,7 +208,7 @@ defineBlockGenerator('rgb_ultrasonic', function() {
 
 // 舵机转动
 defineBlockGenerator('servo_angle', function() {
-  let angle = qhValueToCode.call(this, 'angle') || 90;
+  let angle = qhValueToCode.call(this, 'angle', 90);
   defineInclude('servo_angle', 'Servo');
   defineVariable('servo', 'Servo myservo');
   defineSetUp('attach_pin', 'myservo.attach(3)');
@@ -219,7 +220,7 @@ defineBlockGenerator('servo_angle', function() {
 defineBlockGenerator('car_base_motion', function() {
   importQH();
   let direction = this.getFieldValue('direction');
-  let velocity = qhValueToCode.call(this, 'power');
+  let velocity = qhValueToCode.call(this, 'power', 50);
   defineVariable('car', 'CAR car(8,7,6,2,4,5)');
   let code = 'car.direction_speed_ctrl(' + direction + ', ' + velocity + ');\n';
   return code;
@@ -230,8 +231,8 @@ function defineCarControlBlockGenerator(name) {
   defineBlockGenerator(name, function() {
     importQH();
     let direction = this.getQhValue('direction');
-    let power = qhValueToCode.call(this, 'power');
-    let secs = qhValueToCode.call(this, 'secs');
+    let power = qhValueToCode.call(this, 'power', 50);
+    let secs = qhValueToCode.call(this, 'secs', 1);
     defineVariable('car', 'CAR car(8,7,6,2,4,5)');
     let code = 'car.direction_speed_ctrl(' + direction + ', ' + power + ');\n' +
       'delay(' + (parseInt(secs) * 1000) + ');\n';
@@ -261,7 +262,7 @@ defineBlockGenerator('car_pause', function() {
 defineBlockGenerator('ir_recv', function() {
   var variable = Blockly.Arduino.variableDB_.getName(this.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   Blockly.Arduino.definitions_['var_declare' + variable] = 'long ' + variable + ';';
-  var dropdown_pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_ATOMIC);
+  var dropdown_pin = qhValueToCode.call(this, 'PIN');
   var branch = Blockly.Arduino.statementToCode(this, 'DO');
   var branch2 = Blockly.Arduino.statementToCode(this, 'DO2');
   defineInclude('define_ir_recv', IRremote);
@@ -294,10 +295,10 @@ defineBlockGenerator('ir_val', function() {
 // PS2 Controller init
 defineBlockGenerator('ps2_init', function() {
   importQH();
-  var PS2_DAT = Blockly.Arduino.valueToCode(this, 'PIN1', Blockly.Arduino.ORDER_ATOMIC || '10');
-  var PS2_CMD = Blockly.Arduino.valueToCode(this, 'PIN2', Blockly.Arduino.ORDER_ATOMIC || '11');
-  var PS2_CS = Blockly.Arduino.valueToCode(this, 'PIN3', Blockly.Arduino.ORDER_ATOMIC || '12');
-  var PS2_CLK = Blockly.Arduino.valueToCode(this, 'PIN4', Blockly.Arduino.ORDER_ATOMIC || '13');
+  var PS2_DAT = qhValueToCode.call(this, 'PIN1', '10');
+  var PS2_CMD = qhValueToCode.call(this, 'PIN2', '11');
+  var PS2_CS = qhValueToCode.call(this, 'PIN3', '12');
+  var PS2_CLK = qhValueToCode.call(this, 'PIN4', '13');
 
   Blockly.Arduino.definitions_['define_ps2_dat'] = '#define PS2_DAT ' + PS2_DAT;
   Blockly.Arduino.definitions_['define_ps2_cmd'] = '#define PS2_CMD ' + PS2_CMD;
@@ -333,7 +334,7 @@ defineBlockGenerator('ps2_a_btn', function() {
 // PS2 Controller read controller and setmotor
 defineBlockGenerator('ps2_readController_setMotor', function() {
   var PS2_Motor1 = this.getFieldValue('MOTOR1');
-  var PS2_Motor2 = Blockly.Arduino.valueToCode(this, 'MOTOR2', Blockly.Arduino.ORDER_ATOMIC || '0');
+  var PS2_Motor2 = qhValueToCode.call(this, 'MOTOR2', '0');
   var code = 'ps2x.read_gamepad(' + PS2_Motor1 + ',' + PS2_Motor2 + ');\n'
   return code;
 });
