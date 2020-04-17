@@ -253,7 +253,7 @@ defineBlock('qh_car_pause', function() {
 *********************************************/
 Blockly.qhColour.REMOTE_CTL = '#47C5CA';
 //红外接收模块
-Blockly.Blocks.yf_ir_recv = {
+Blockly.Blocks.qh_ir_recv = {
   init: function() {
     this.setColour(Blockly.qhColour.REMOTE_CTL);
     this.appendDummyInput()
@@ -305,7 +305,7 @@ var YF_IR_VAL = [
   [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_8.png', 'width': 32, 'height': 32 }, '0xFF4AB5'],
   [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_9.png', 'width': 32, 'height': 32 }, '0xFF52AD'],
 ];
-Blockly.Blocks.yf_ir_val = {
+Blockly.Blocks.qh_ir_val = {
   init: function() {
     this.setColour(Blockly.qhColour.REMOTE_CTL);
     this.appendDummyInput()
@@ -317,7 +317,7 @@ Blockly.Blocks.yf_ir_val = {
 };
 
 // PS2 Controller init
-Blockly.Blocks.yf_ps2_init = {
+Blockly.Blocks.qh_ps2_init = {
   init: function() {
     this.setColour(Blockly.qhColour.REMOTE_CTL);
     this.appendDummyInput("")
@@ -368,7 +368,7 @@ const MIXLY_YF_PS2_BTN_STA = [
 ];
 
 // PS2 Controller button 
-defineBlock('yf_ps2_btn', function() {
+defineBlock('qh_ps2_btn', function() {
   this.setColour(Blockly.qhColour.REMOTE_CTL);
   this.appendDummyInput("")
     .appendField(Blockly.MIXLY_YF_PS2_BUTTON)
@@ -390,7 +390,7 @@ const MIXLY_YF_PS2_ROCKER_STA = [
 ];
 
 // PS2 Controller Rocker
-defineBlock('yf_ps2_rocker', function() {
+defineBlock('qh_ps2_rocker', function() {
   this.setColour(Blockly.qhColour.REMOTE_CTL);
   this.appendDummyInput("")
     .appendField(Blockly.MIXLY_YF_PS2_ROCKER)
@@ -418,7 +418,7 @@ const MIXLY_YF_PS2_A_BTN = [
 ];
 
 // PS2 Controller read analog value of the button  --- how hard you press the button
-defineBlock('yf_ps2_a_btn', function() {
+defineBlock('qh_ps2_a_btn', function() {
   this.setColour(Blockly.qhColour.REMOTE_CTL);
   this.appendDummyInput("")
     .appendField(Blockly.MIXLY_YF_PS2_A_BUTTON)
@@ -430,7 +430,7 @@ defineBlock('yf_ps2_a_btn', function() {
 });
 
 // PS2 Controller read controller and setmotor
-defineBlock('yf_ps2_readController_setMotor', function() {
+defineBlock('qh_ps2_readController_setMotor', function() {
   this.setColour(Blockly.qhColour.REMOTE_CTL);
   this.appendDummyInput("")
     .appendField(Blockly.MIXLY_YF_PS2)

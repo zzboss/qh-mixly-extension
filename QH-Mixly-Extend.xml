@@ -161,7 +161,7 @@
     </category>
     <category id="qh_ps2_control" name="遥控" colour="#00C5CC">
       <!--ir receiver -->
-      <block type="yf_ir_recv">
+      <block type="qh_ir_recv">
         <value name="PIN">
             <shadow type="pins_digital">
               <field name="PIN">11</field>
@@ -169,10 +169,10 @@
         </value>
       </block>
     <!-- 红外mini遥控器键值 -->
-      <block type="yf_ir_val">
+      <block type="qh_ir_val">
       </block>
     <!--PS2 Controller init-->
-      <block type="yf_ps2_init">
+      <block type="qh_ps2_init">
         <value name="PIN1">
             <shadow type="pins_digital">
               <field name="PIN">10</field>
@@ -195,7 +195,7 @@
         </value>
       </block>
     <!--PS2 Controller read Controller and set motor-->
-      <block type="yf_ps2_readController_setMotor">
+      <block type="qh_ps2_readController_setMotor">
         <field name="MOTOR1">false</field>
         <value name="MOTOR2">
           <shadow type="math_number">
@@ -204,11 +204,11 @@
         </value>
       </block>
     <!--PS2 Controller button-->
-      <block type="yf_ps2_btn"></block>
+      <block type="qh_ps2_btn"></block>
     <!--PS2 Controller rocker-->
-      <block type="yf_ps2_rocker"></block>
+      <block type="qh_ps2_rocker"></block>
     <!--PS2 Controller read analog value of the button-->
-      <block type="yf_ps2_a_btn"></block>
+      <block type="qh_ps2_a_btn"></block>
       <block type="qh_bluetooth_available"></block>
       <block type="qh_bluetooth_readstr"></block>
       <block type="qh_bluetooth_read_data"></block>

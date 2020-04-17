@@ -258,7 +258,7 @@ defineBlockGenerator('qh_car_pause', function() {
 遥控 - 红外遥控 、 PS2-手柄遥控
 *********************************************/
 //红外接收模块
-defineBlockGenerator('yf_ir_recv', function() {
+defineBlockGenerator('qh_ir_recv', function() {
   var variable = Blockly.Arduino.variableDB_.getName(this.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   Blockly.Arduino.definitions_['var_declare' + variable] = 'long ' + variable + ';';
   var dropdown_pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_ATOMIC);
@@ -284,7 +284,7 @@ defineBlockGenerator('yf_ir_recv', function() {
 });
 
 //红外mini遥控器键值
-defineBlockGenerator('yf_ir_val', function() {
+defineBlockGenerator('qh_ir_val', function() {
   var code = (this.getFieldValue('VAL'));
   var order = code < 0 ?
     Blockly.Arduino.ORDER_UNARY_PREFIX : Blockly.Arduino.ORDER_ATOMIC;
@@ -292,7 +292,7 @@ defineBlockGenerator('yf_ir_val', function() {
 });
 
 // PS2 Controller init
-defineBlockGenerator('yf_ps2_init', function() {
+defineBlockGenerator('qh_ps2_init', function() {
   importQH();
   var PS2_DAT = Blockly.Arduino.valueToCode(this, 'PIN1', Blockly.Arduino.ORDER_ATOMIC || '10');
   var PS2_CMD = Blockly.Arduino.valueToCode(this, 'PIN2', Blockly.Arduino.ORDER_ATOMIC || '11');
@@ -309,7 +309,7 @@ defineBlockGenerator('yf_ps2_init', function() {
 });
 
 // PS2 Controller button
-defineBlockGenerator('yf_ps2_btn', function() {
+defineBlockGenerator('qh_ps2_btn', function() {
   var PS2_BTN = Blockly.Arduino.variableDB_.getName(this.getFieldValue('PS2_BTN'), Blockly.Variables.NAME_TYPE);
   var PS2_BTN_STATUS = Blockly.Arduino.variableDB_.getName(this.getFieldValue('PS2_BTN_STATUS'), Blockly.Variables.NAME_TYPE);
   var code = 'ps2x.' + PS2_BTN_STATUS + '(' + PS2_BTN + ')';
@@ -317,21 +317,21 @@ defineBlockGenerator('yf_ps2_btn', function() {
 });
 
 // PS2 Controller Rocker
-defineBlockGenerator('yf_ps2_rocker', function() {
+defineBlockGenerator('qh_ps2_rocker', function() {
   var PS2_ROCKER_STATUS = Blockly.Arduino.variableDB_.getName(this.getFieldValue('PS2_ROCKER_STATUS'), Blockly.Variables.NAME_TYPE);
   var code = 'ps2x.Analog(' + PS2_ROCKER_STATUS + ')';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 });
 
 // PS2 Controller read analog value of the button  --- how hard you press the button
-defineBlockGenerator('yf_ps2_a_btn', function() {
+defineBlockGenerator('qh_ps2_a_btn', function() {
   var PS2_A_BTN = this.getFieldValue('PS2_A_BTN');
   var code = 'ps2x.Analog(' + PS2_A_BTN + ')';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 });
 
 // PS2 Controller read controller and setmotor
-defineBlockGenerator('yf_ps2_readController_setMotor', function() {
+defineBlockGenerator('qh_ps2_readController_setMotor', function() {
   var PS2_Motor1 = this.getFieldValue('MOTOR1');
   var PS2_Motor2 = Blockly.Arduino.valueToCode(this, 'MOTOR2', Blockly.Arduino.ORDER_ATOMIC || '0');
   var code = 'ps2x.read_gamepad(' + PS2_Motor1 + ',' + PS2_Motor2 + ');\n'
