@@ -35,7 +35,7 @@ function setPinMode(pinMode) {
  * @param {Function} func 生成器函数
  */
 function defineBlockGenerator(name, func) {
-  Blockly.Arduino[name] = func;
+  Blockly.Arduino['qh_' + name] = func;
 }
 
 /**
@@ -44,14 +44,14 @@ function defineBlockGenerator(name, func) {
  * @param {String} libName 引入的库名称
  */
 function defineInclude(key, libName) {
-  Blockly.Arduino.definitions_[key] = '#include "' + libName + '.h"';
+  Blockly.Arduino.definitions_['qh_' + key] = '#include "' + libName + '.h"';
 }
 
 /**
  * 引入沁和库文件
  */
 function importQH() {
-  defineInclude('qh_include_qheduino', 'qheduino');
+  defineInclude('include_qheduino', 'qheduino');
 }
 
 /**
@@ -60,7 +60,7 @@ function importQH() {
  * @param {*} code 变量定义的代码
  */
 function defineVariable(key, code) {
-  Blockly.Arduino.definitions_[key] = code + ';';
+  Blockly.Arduino.definitions_['qh_' + key] = code + ';';
 }
 
 /**
@@ -69,7 +69,7 @@ function defineVariable(key, code) {
  * @param {String} code 设置部分的一行代码
  */
 function defineSetUp(key, code) {
-  Blockly.Arduino.setups_[key] = code + ';';
+  Blockly.Arduino.setups_['qh_' + key] = code + ';';
 }
 
 /**
@@ -84,7 +84,7 @@ function qhValueToCode(key) {
  * 灯光控制
  **************************/
 // 运行指示灯: 引脚-9
-defineBlockGenerator('qh_indicator_light', function() {
+defineBlockGenerator('indicator_light', function() {
   setPinMode([9, OUTPUT]);
   var dropdown_mode = this.getFieldValue('MODE');
   var code = 'pinMode(9, ' + dropdown_mode + ');\n';
@@ -92,7 +92,7 @@ defineBlockGenerator('qh_indicator_light', function() {
 });
 
 // RGB 灯控制: r-10 g-9 b-11
-defineBlockGenerator('qh_rgb_light', function() {
+defineBlockGenerator('rgb_light', function() {
   setPinModeArray([
     [10, OUTPUT],
     [9, OUTPUT],
@@ -105,10 +105,10 @@ digitalWrite(11,${this.getFieldValue('B')});`;
 });
 
 // rgb 灯光值控制
-defineBlockGenerator('qh_rgb_control', function() {
-  defineInclude('qh_include_fast_led', 'FastLED');
-  defineVariable('qh_fast_led', 'CRGB leds[6]');
-  defineSetUp('qh_setup_fastled', 'FastLED.addLeds<NEOPIXEL, 12>(leds, 6)');
+defineBlockGenerator('rgb_control', function() {
+  defineInclude('include_fast_led', 'FastLED');
+  defineVariable('fast_led', 'CRGB leds[6]');
+  defineSetUp('setup_fastled', 'FastLED.addLeds<NEOPIXEL, 12>(leds, 6)');
   let r = qhValueToCode.call(this, 'R');
   let g = qhValueToCode.call(this, 'G');
   let b = qhValueToCode.call(this, 'B');
@@ -116,7 +116,7 @@ defineBlockGenerator('qh_rgb_control', function() {
 })
 
 // 随机RGB灯光 : r-10 g-9 b-11
-defineBlockGenerator('qh_random_rgb', function() {
+defineBlockGenerator('random_rgb', function() {
   setPinModeArray([
     [9, OUTPUT],
     [10, OUTPUT],
@@ -161,17 +161,17 @@ function createDigitalWriteGenerator(name) {
 }
 
 // 红外避障
-createDigitalReadGenerator('qh_ir_evading');
+createDigitalReadGenerator('ir_evading');
 // 红外循迹
-createDigitalReadGenerator('qh_ir_tracking');
+createDigitalReadGenerator('ir_tracking');
 // 寻光
-createDigitalReadGenerator('qh_light_seeking');
+createDigitalReadGenerator('light_seeking');
 // 控制按键
-createDigitalReadGenerator('qh_control_key');
+createDigitalReadGenerator('control_key');
 // 蜂鸣器
-createDigitalWriteGenerator('qh_buzzer');
+createDigitalWriteGenerator('buzzer');
 // 电压测量
-defineBlockGenerator('qh_voltage_measurement', function() {
+defineBlockGenerator('voltage_measurement', function() {
   var dropdown_pin = qhValueToCode.call(this, 'PIN');
   defineSetUp('setup_input_' + dropdown_pin, 'pinMode(' + dropdown_pin + ', INPUT)');
   var code = 'analogRead(' + dropdown_pin + ')';
@@ -180,16 +180,16 @@ defineBlockGenerator('qh_voltage_measurement', function() {
 
 
 // 超声波测距
-defineBlockGenerator('qh_ultrasonic_ranging', function() {
+defineBlockGenerator('ultrasonic_ranging', function() {
   importQH();
-  defineVariable('qh_sr04_13_12', 'SR04 SR04_13_12(13,12)');
+  defineVariable('sr04_13_12', 'SR04 SR04_13_12(13,12)');
   let code = 'SR04_13_12.DistanceAvg()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 });
 
 // rgb超声波测距
-defineBlockGenerator('qh_rgb_ultrasonic', function() {
-  defineSetUp('qh_serial_begin', 'Serial.begin(115200)');
+defineBlockGenerator('rgb_ultrasonic', function() {
+  defineSetUp('serial_begin', 'Serial.begin(115200)');
   let code =
     `float qh_rgb_getDistance(){
   pinMode(13, OUTPUT); 
@@ -201,26 +201,26 @@ defineBlockGenerator('qh_rgb_ultrasonic', function() {
   pinMode(13, INPUT); 
   return pulseIn(13, HIGH);
 }`;
-  defineVariable('qh_rgb_getDistance', code);
+  defineVariable('rgb_getDistance', code);
   return ['qh_rgb_getDistance()', Blockly.Arduino.ORDER_ATOMIC];
 });
 
 // 舵机转动
-defineBlockGenerator('qh_servo_angle', function() {
+defineBlockGenerator('servo_angle', function() {
   let angle = qhValueToCode.call(this, 'angle') || 90;
-  defineInclude('qh_servo_angle', 'Servo');
-  defineVariable('qh_servo', 'Servo myservo');
-  defineSetUp('qh_attach_pin', 'myservo.attach(3)');
+  defineInclude('servo_angle', 'Servo');
+  defineVariable('servo', 'Servo myservo');
+  defineSetUp('attach_pin', 'myservo.attach(3)');
   let code = 'myservo.write(' + angle + ');\n';
   return code;
 });
 
 // 小车运动控制
-defineBlockGenerator('qh_car_base_motion', function() {
+defineBlockGenerator('car_base_motion', function() {
   importQH();
   let direction = this.getFieldValue('direction');
   let velocity = qhValueToCode.call(this, 'power');
-  defineVariable('qh_car', 'CAR car(8,7,6,2,4,5)');
+  defineVariable('car', 'CAR car(8,7,6,2,4,5)');
   let code = 'car.direction_speed_ctrl(' + direction + ', ' + velocity + ');\n';
   return code;
 });
@@ -232,24 +232,24 @@ function defineCarControlBlockGenerator(name) {
     let direction = this.getQhValue('direction');
     let power = qhValueToCode.call(this, 'power');
     let secs = qhValueToCode.call(this, 'secs');
-    defineVariable('qh_car', 'CAR car(8,7,6,2,4,5)');
+    defineVariable('car', 'CAR car(8,7,6,2,4,5)');
     let code = 'car.direction_speed_ctrl(' + direction + ', ' + power + ');\n' +
       'delay(' + (parseInt(secs) * 1000) + ');\n';
     return code;
   });
 }
 
-defineCarControlBlockGenerator('qh_car_farword');
-defineCarControlBlockGenerator('qh_car_backword');
-defineCarControlBlockGenerator('qh_car_turn_left');
-defineCarControlBlockGenerator('qh_car_turn_right');
-defineCarControlBlockGenerator('qh_car_spin_left');
-defineCarControlBlockGenerator('qh_car_spin_right');
+defineCarControlBlockGenerator('car_farword');
+defineCarControlBlockGenerator('car_backword');
+defineCarControlBlockGenerator('car_turn_left');
+defineCarControlBlockGenerator('car_turn_right');
+defineCarControlBlockGenerator('car_spin_left');
+defineCarControlBlockGenerator('car_spin_right');
 
 // 小车停止运动
-defineBlockGenerator('qh_car_pause', function() {
+defineBlockGenerator('car_pause', function() {
   importQH();
-  defineVariable('qh_car', 'CAR car(8,7,6,2,4,5)');
+  defineVariable('car', 'CAR car(8,7,6,2,4,5)');
   return 'car.direction_speed_ctrl(0, 0);\n'
 });
 
@@ -258,7 +258,7 @@ defineBlockGenerator('qh_car_pause', function() {
 遥控 - 红外遥控 、 PS2-手柄遥控
 *********************************************/
 //红外接收模块
-defineBlockGenerator('qh_ir_recv', function() {
+defineBlockGenerator('ir_recv', function() {
   var variable = Blockly.Arduino.variableDB_.getName(this.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   Blockly.Arduino.definitions_['var_declare' + variable] = 'long ' + variable + ';';
   var dropdown_pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_ATOMIC);
@@ -284,7 +284,7 @@ defineBlockGenerator('qh_ir_recv', function() {
 });
 
 //红外mini遥控器键值
-defineBlockGenerator('qh_ir_val', function() {
+defineBlockGenerator('ir_val', function() {
   var code = (this.getFieldValue('VAL'));
   var order = code < 0 ?
     Blockly.Arduino.ORDER_UNARY_PREFIX : Blockly.Arduino.ORDER_ATOMIC;
@@ -292,7 +292,7 @@ defineBlockGenerator('qh_ir_val', function() {
 });
 
 // PS2 Controller init
-defineBlockGenerator('qh_ps2_init', function() {
+defineBlockGenerator('ps2_init', function() {
   importQH();
   var PS2_DAT = Blockly.Arduino.valueToCode(this, 'PIN1', Blockly.Arduino.ORDER_ATOMIC || '10');
   var PS2_CMD = Blockly.Arduino.valueToCode(this, 'PIN2', Blockly.Arduino.ORDER_ATOMIC || '11');
@@ -309,7 +309,7 @@ defineBlockGenerator('qh_ps2_init', function() {
 });
 
 // PS2 Controller button
-defineBlockGenerator('qh_ps2_btn', function() {
+defineBlockGenerator('ps2_btn', function() {
   var PS2_BTN = Blockly.Arduino.variableDB_.getName(this.getFieldValue('PS2_BTN'), Blockly.Variables.NAME_TYPE);
   var PS2_BTN_STATUS = Blockly.Arduino.variableDB_.getName(this.getFieldValue('PS2_BTN_STATUS'), Blockly.Variables.NAME_TYPE);
   var code = 'ps2x.' + PS2_BTN_STATUS + '(' + PS2_BTN + ')';
@@ -317,21 +317,21 @@ defineBlockGenerator('qh_ps2_btn', function() {
 });
 
 // PS2 Controller Rocker
-defineBlockGenerator('qh_ps2_rocker', function() {
+defineBlockGenerator('ps2_rocker', function() {
   var PS2_ROCKER_STATUS = Blockly.Arduino.variableDB_.getName(this.getFieldValue('PS2_ROCKER_STATUS'), Blockly.Variables.NAME_TYPE);
   var code = 'ps2x.Analog(' + PS2_ROCKER_STATUS + ')';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 });
 
 // PS2 Controller read analog value of the button  --- how hard you press the button
-defineBlockGenerator('qh_ps2_a_btn', function() {
+defineBlockGenerator('ps2_a_btn', function() {
   var PS2_A_BTN = this.getFieldValue('PS2_A_BTN');
   var code = 'ps2x.Analog(' + PS2_A_BTN + ')';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 });
 
 // PS2 Controller read controller and setmotor
-defineBlockGenerator('qh_ps2_readController_setMotor', function() {
+defineBlockGenerator('ps2_readController_setMotor', function() {
   var PS2_Motor1 = this.getFieldValue('MOTOR1');
   var PS2_Motor2 = Blockly.Arduino.valueToCode(this, 'MOTOR2', Blockly.Arduino.ORDER_ATOMIC || '0');
   var code = 'ps2x.read_gamepad(' + PS2_Motor1 + ',' + PS2_Motor2 + ');\n'
@@ -339,18 +339,18 @@ defineBlockGenerator('qh_ps2_readController_setMotor', function() {
 });
 
 // 蓝牙是否有数据可读
-defineBlockGenerator('qh_bluetooth_available', function() {
+defineBlockGenerator('bluetooth_available', function() {
   var code = "Serial.available() > 0";
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 });
 
 // 蓝牙读取字符串
-defineBlockGenerator('qh_bluetooth_readstr', function() {
+defineBlockGenerator('bluetooth_readstr', function() {
   var code = "Serial.readString()";
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 });
 // 蓝牙读取数据
-defineBlockGenerator('qh_bluetooth_read_data', function() {
+defineBlockGenerator('bluetooth_read_data', function() {
   var code = "Serial.read()";
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 });

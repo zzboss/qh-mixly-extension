@@ -31,7 +31,7 @@ function createDropDown(ItemArr) {
  * @param {Function} initFunc 块初始化函数
  */
 function defineBlock(blockName, initFunc) {
-  Blockly.Blocks[blockName] = {
+  Blockly.Blocks['qh_' + blockName] = {
     init: initFunc,
     setQHValue: function(key, val) {
       this[key] = val;
@@ -60,7 +60,7 @@ function defineBlock(blockName, initFunc) {
  *********************************************/
 
 // 运行指示灯
-defineBlock('qh_indicator_light', function() {
+defineBlock('indicator_light', function() {
   this.setColour(Blockly.Blocks.base.HUE);
   this.appendDummyInput("")
     .appendField(Blockly.QH_INDICATOR_LIGHT_SWITCH)
@@ -69,7 +69,7 @@ defineBlock('qh_indicator_light', function() {
 });
 
 // RGB 灯控制
-defineBlock('qh_rgb_light', function() {
+defineBlock('rgb_light', function() {
   const item = [
     [Blockly.MIXLY_ON, "LOW"],
     [Blockly.MIXLY_OFF, "HIGH"]
@@ -87,7 +87,7 @@ defineBlock('qh_rgb_light', function() {
 });
 
 // 随机rgb灯光
-defineBlock('qh_random_rgb', function() {
+defineBlock('random_rgb', function() {
   this.setColour(Blockly.Blocks.base.HUE);
   this.appendDummyInput('')
     .appendField(Blockly.QH_RGB_RANDOM)
@@ -99,7 +99,7 @@ defineBlock('qh_random_rgb', function() {
  *********************************************/
 Blockly.qhColour.MODEL = '#2E8B57';
 // 超声波测距
-defineBlock('qh_ultrasonic_ranging', function() {
+defineBlock('ultrasonic_ranging', function() {
   this.setColour(Blockly.qhColour.MODEL);
   this.appendDummyInput('')
     .appendField(Blockly.QH_ULTRASONIC_RANGING);
@@ -109,7 +109,7 @@ defineBlock('qh_ultrasonic_ranging', function() {
 });
 
 // rgb 超声波测距
-defineBlock('qh_rgb_ultrasonic', function() {
+defineBlock('rgb_ultrasonic', function() {
   this.setColour(Blockly.qhColour.MODEL);
   this.appendDummyInput('')
     .appendField(Blockly.QH_RGB_ULTRASONIC);
@@ -119,7 +119,7 @@ defineBlock('qh_rgb_ultrasonic', function() {
 });
 
 // RGB 超声波灯光值控制
-defineBlock('qh_rgb_control', function() {
+defineBlock('rgb_control', function() {
   this.setColour(Blockly.qhColour.MODEL);
   this.appendNumberInput('R', Blockly.QH_RGB_CONTROL, Blockly.QH_RGB_LIGHT_R);
   this.appendNumberInput('G', Blockly.QH_RGB_LIGHT_G);
@@ -128,7 +128,7 @@ defineBlock('qh_rgb_control', function() {
 })
 
 // 舵机转动
-defineBlock('qh_servo_angle', function() {
+defineBlock('servo_angle', function() {
   this.setColour(Blockly.qhColour.MODEL);
   this.appendValueInput('angle')
     .setCheck(Number)
@@ -178,17 +178,17 @@ function createDigitalWriteBlock(name, desc) {
 }
 
 // 红外避障
-createDigitalReadBlock('qh_ir_evading', Blockly.QH_IR_EVADING);
+createDigitalReadBlock('ir_evading', Blockly.QH_IR_EVADING);
 // 红外循迹
-createDigitalReadBlock('qh_ir_tracking', Blockly.QH_IR_TRACKING);
+createDigitalReadBlock('ir_tracking', Blockly.QH_IR_TRACKING);
 // 寻光
-createDigitalReadBlock('qh_light_seeking', Blockly.QH_LIGHT_SEEKING);
+createDigitalReadBlock('light_seeking', Blockly.QH_LIGHT_SEEKING);
 // 电压测量
-createDigitalReadBlock('qh_voltage_measurement', Blockly.QH_VOLTAGE_MEASUREMENT);
+createDigitalReadBlock('voltage_measurement', Blockly.QH_VOLTAGE_MEASUREMENT);
 // 蜂鸣器
-createDigitalWriteBlock('qh_buzzer', Blockly.QH_BUZZER);
+createDigitalWriteBlock('buzzer', Blockly.QH_BUZZER);
 // 按键控制
-createDigitalReadBlock('qh_control_key', Blockly.QH_CONTROL_KEY);
+createDigitalReadBlock('control_key', Blockly.QH_CONTROL_KEY);
 
 
 
@@ -197,7 +197,7 @@ createDigitalReadBlock('qh_control_key', Blockly.QH_CONTROL_KEY);
  *********************************************/
 Blockly.qhColour.MOTION = '#FFB6C1';
 // 小车运动  0:刹车 1:前进 2:后退 3:左转 4:右转 5:原地左转 6:原地右转
-defineBlock('qh_car_base_motion', function() {
+defineBlock('car_base_motion', function() {
   const selection = [
     [Blockly.QH_FORWARD, '1'],
     [Blockly.QH_BACKWARD, '2'],
@@ -233,15 +233,15 @@ function defineCarControlBlock(blockName, dirVal, desc) {
   });
 }
 
-defineCarControlBlock('qh_car_farword', '1', Blockly.QH_FARWORD_WITH_POWER);
-defineCarControlBlock('qh_car_backword', '2', Blockly.QH_BACKWORD_WITH_POWER);
-defineCarControlBlock('qh_car_turn_left', '3', Blockly.QH_TURN_LEFT_WITH_POWER);
-defineCarControlBlock('qh_car_turn_right', '4', Blockly.QH_TURN_RIGHT_WITH_POWER);
-defineCarControlBlock('qh_car_spin_left', '5', Blockly.QH_SPIN_LEFT_WITH_POWER);
-defineCarControlBlock('qh_car_spin_right', '6', Blockly.QH_SPIN_RIGHT_WITH_POWER);
+defineCarControlBlock('car_farword', '1', Blockly.QH_FARWORD_WITH_POWER);
+defineCarControlBlock('car_backword', '2', Blockly.QH_BACKWORD_WITH_POWER);
+defineCarControlBlock('car_turn_left', '3', Blockly.QH_TURN_LEFT_WITH_POWER);
+defineCarControlBlock('car_turn_right', '4', Blockly.QH_TURN_RIGHT_WITH_POWER);
+defineCarControlBlock('car_spin_left', '5', Blockly.QH_SPIN_LEFT_WITH_POWER);
+defineCarControlBlock('car_spin_right', '6', Blockly.QH_SPIN_RIGHT_WITH_POWER);
 
 // 小车停止
-defineBlock('qh_car_pause', function() {
+defineBlock('car_pause', function() {
   this.setColour(Blockly.qhColour.MOTION);
   this.appendDummyInput('')
     .appendField(Blockly.QH_CAR_PAUSE);
@@ -252,35 +252,26 @@ defineBlock('qh_car_pause', function() {
 遥控 - 红外遥控 、 PS2-手柄遥控
 *********************************************/
 Blockly.qhColour.REMOTE_CTL = '#47C5CA';
+
 //红外接收模块
-Blockly.Blocks.qh_ir_recv = {
-  init: function() {
-    this.setColour(Blockly.qhColour.REMOTE_CTL);
-    this.appendDummyInput()
-      .appendField(Blockly.MIXLY_YF_IR_RECEIVE)
-      .appendField(" ")
-      .appendField(new Blockly.FieldTextInput('ir_item'), 'VAR');
-    this.appendValueInput("PIN", Number)
-      .appendField(Blockly.MIXLY_PIN)
-      .setCheck(Number);
-    this.appendStatementInput('DO')
-      .appendField(Blockly.MIXLY_IR_RECEIVE_YES);
-    this.appendStatementInput('DO2')
-      .appendField(Blockly.MIXLY_IR_RECEIVE_NO);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setInputsInline(true);
-    this.setTooltip(Blockly.MIXLY_IR_RECIEVE_TOOLTIP);
-  },
-  getVars: function() {
-    return [this.getFieldValue('VAR')];
-  },
-  renameVar: function(oldName, newName) {
-    if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
-      this.setTitleValue(newName, 'VAR');
-    }
-  }
-};
+defineBlock('ir_recv', function() {
+  this.setColour(Blockly.qhColour.REMOTE_CTL);
+  this.appendDummyInput()
+    .appendField(Blockly.MIXLY_YF_IR_RECEIVE)
+    .appendField(" ")
+    .appendField(new Blockly.FieldTextInput('ir_item'), 'VAR');
+  this.appendValueInput("PIN", Number)
+    .appendField(Blockly.MIXLY_PIN)
+    .setCheck(Number);
+  this.appendStatementInput('DO')
+    .appendField(Blockly.MIXLY_IR_RECEIVE_YES);
+  this.appendStatementInput('DO2')
+    .appendField(Blockly.MIXLY_IR_RECEIVE_NO);
+  this.setPreviousStatement(true);
+  this.setNextStatement(true);
+  this.setInputsInline(true);
+  this.setTooltip(Blockly.MIXLY_IR_RECIEVE_TOOLTIP);
+});
 
 //红外mini遥控器键值
 var YF_IR_VAL = [
@@ -305,42 +296,38 @@ var YF_IR_VAL = [
   [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_8.png', 'width': 32, 'height': 32 }, '0xFF4AB5'],
   [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_9.png', 'width': 32, 'height': 32 }, '0xFF52AD'],
 ];
-Blockly.Blocks.qh_ir_val = {
-  init: function() {
-    this.setColour(Blockly.qhColour.REMOTE_CTL);
-    this.appendDummyInput()
-      .appendField(Blockly.MIXLY_YF_IR_VAL)
-      .appendField(new Blockly.FieldDropdown(YF_IR_VAL), 'VAL');
-    this.setOutput(true, Number);
-    this.setTooltip(Blockly.MIXLY_IR_RECIEVE_TOOLTIP);
-  }
-};
+defineBlock('ir_val', function() {
+  this.setColour(Blockly.qhColour.REMOTE_CTL);
+  this.appendDummyInput()
+    .appendField(Blockly.MIXLY_YF_IR_VAL)
+    .appendField(new Blockly.FieldDropdown(YF_IR_VAL), 'VAL');
+  this.setOutput(true, Number);
+  this.setTooltip(Blockly.MIXLY_IR_RECIEVE_TOOLTIP);
+});
 
 // PS2 Controller init
-Blockly.Blocks.qh_ps2_init = {
-  init: function() {
-    this.setColour(Blockly.qhColour.REMOTE_CTL);
-    this.appendDummyInput("")
-      .appendField(Blockly.MIXLY_YF_PS2)
-      .appendField(new Blockly.FieldImage("../../media/qheduino/yf_ps2x.png", 60, 37))
-      .appendField(Blockly.MIXLY_SETUP)
-    this.appendValueInput("PIN1")
-      .setCheck(Number).setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("DAT")
-    this.appendValueInput("PIN2")
-      .setCheck(Number).setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("CMD")
-    this.appendValueInput("PIN3")
-      .setCheck(Number).setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("CS")
-    this.appendValueInput("PIN4")
-      .setCheck(Number).setAlign(Blockly.ALIGN_RIGHT)
-      .appendField("CLK")
-    this.setInputsInline(true);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-  }
-};
+defineBlock('ps2_init', function() {
+  this.setColour(Blockly.qhColour.REMOTE_CTL);
+  this.appendDummyInput("")
+    .appendField(Blockly.MIXLY_YF_PS2)
+    .appendField(new Blockly.FieldImage("../../media/qheduino/yf_ps2x.png", 60, 37))
+    .appendField(Blockly.MIXLY_SETUP)
+  this.appendValueInput("PIN1")
+    .setCheck(Number).setAlign(Blockly.ALIGN_RIGHT)
+    .appendField("DAT")
+  this.appendValueInput("PIN2")
+    .setCheck(Number).setAlign(Blockly.ALIGN_RIGHT)
+    .appendField("CMD")
+  this.appendValueInput("PIN3")
+    .setCheck(Number).setAlign(Blockly.ALIGN_RIGHT)
+    .appendField("CS")
+  this.appendValueInput("PIN4")
+    .setCheck(Number).setAlign(Blockly.ALIGN_RIGHT)
+    .appendField("CLK")
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, null);
+  this.setNextStatement(true, null);
+});
 
 //PS2手柄键值 - button 数字
 var MIXLY_YF_PS2_BTN = [
@@ -368,7 +355,7 @@ const MIXLY_YF_PS2_BTN_STA = [
 ];
 
 // PS2 Controller button 
-defineBlock('qh_ps2_btn', function() {
+defineBlock('ps2_btn', function() {
   this.setColour(Blockly.qhColour.REMOTE_CTL);
   this.appendDummyInput("")
     .appendField(Blockly.MIXLY_YF_PS2_BUTTON)
@@ -390,7 +377,7 @@ const MIXLY_YF_PS2_ROCKER_STA = [
 ];
 
 // PS2 Controller Rocker
-defineBlock('qh_ps2_rocker', function() {
+defineBlock('ps2_rocker', function() {
   this.setColour(Blockly.qhColour.REMOTE_CTL);
   this.appendDummyInput("")
     .appendField(Blockly.MIXLY_YF_PS2_ROCKER)
@@ -418,7 +405,7 @@ const MIXLY_YF_PS2_A_BTN = [
 ];
 
 // PS2 Controller read analog value of the button  --- how hard you press the button
-defineBlock('qh_ps2_a_btn', function() {
+defineBlock('ps2_a_btn', function() {
   this.setColour(Blockly.qhColour.REMOTE_CTL);
   this.appendDummyInput("")
     .appendField(Blockly.MIXLY_YF_PS2_A_BUTTON)
@@ -430,7 +417,7 @@ defineBlock('qh_ps2_a_btn', function() {
 });
 
 // PS2 Controller read controller and setmotor
-defineBlock('qh_ps2_readController_setMotor', function() {
+defineBlock('ps2_readController_setMotor', function() {
   this.setColour(Blockly.qhColour.REMOTE_CTL);
   this.appendDummyInput("")
     .appendField(Blockly.MIXLY_YF_PS2)
@@ -450,7 +437,7 @@ defineBlock('qh_ps2_readController_setMotor', function() {
 });
 
 // 蓝牙是否有可读数据
-defineBlock('qh_bluetooth_available', function() {
+defineBlock('bluetooth_available', function() {
   this.setColour(Blockly.qhColour.REMOTE_CTL);
   this.appendDummyInput()
     .appendField(Blockly.QH_BLUETOOTH_AVAILABLE);
@@ -459,7 +446,7 @@ defineBlock('qh_bluetooth_available', function() {
 });
 
 // 蓝牙读取字符串
-defineBlock('qh_bluetooth_readstr', function() {
+defineBlock('bluetooth_readstr', function() {
   this.setColour(Blockly.qhColour.REMOTE_CTL);
   this.appendDummyInput()
     .appendField(Blockly.QH_BLUETOOTH_READ_STRING);
@@ -468,7 +455,7 @@ defineBlock('qh_bluetooth_readstr', function() {
 });
 
 // 蓝牙读取字符串
-defineBlock('qh_bluetooth_read_data', function() {
+defineBlock('bluetooth_read_data', function() {
   this.setColour(Blockly.qhColour.REMOTE_CTL);
   this.appendDummyInput()
     .appendField(Blockly.QH_BLUETOOTH_READ_DATA);
