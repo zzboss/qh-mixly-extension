@@ -264,7 +264,7 @@ defineBlockGenerator('yf_ir_recv', function() {
   var dropdown_pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_ATOMIC);
   var branch = Blockly.Arduino.statementToCode(this, 'DO');
   var branch2 = Blockly.Arduino.statementToCode(this, 'DO2');
-  Blockly.Arduino.definitions_['define_ir_recv'] = '#include <IRremote.h>';
+  defineInclude('define_ir_recv', IRremote);
   Blockly.Arduino.definitions_['var_ir_recv' + dropdown_pin] = 'IRrecv irrecv_' + dropdown_pin + '(' + dropdown_pin + ');\ndecode_results results_' + dropdown_pin + ';\n';
   Blockly.Arduino.setups_['setup_ir_recv_' + dropdown_pin] = 'irrecv_' + dropdown_pin + '.enableIRIn();';
   var code = "if (irrecv_" + dropdown_pin + ".decode(&results_" + dropdown_pin + ")) {\n"
@@ -293,11 +293,12 @@ defineBlockGenerator('yf_ir_val', function() {
 
 // PS2 Controller init
 defineBlockGenerator('yf_ps2_init', function() {
+  importQH();
   var PS2_DAT = Blockly.Arduino.valueToCode(this, 'PIN1', Blockly.Arduino.ORDER_ATOMIC || '10');
   var PS2_CMD = Blockly.Arduino.valueToCode(this, 'PIN2', Blockly.Arduino.ORDER_ATOMIC || '11');
   var PS2_CS = Blockly.Arduino.valueToCode(this, 'PIN3', Blockly.Arduino.ORDER_ATOMIC || '12');
   var PS2_CLK = Blockly.Arduino.valueToCode(this, 'PIN4', Blockly.Arduino.ORDER_ATOMIC || '13');
-  Blockly.Arduino.definitions_['include_ps2'] = '#include "PS2X_lib.h"';
+
   Blockly.Arduino.definitions_['define_ps2_dat'] = '#define PS2_DAT ' + PS2_DAT;
   Blockly.Arduino.definitions_['define_ps2_cmd'] = '#define PS2_CMD ' + PS2_CMD;
   Blockly.Arduino.definitions_['define_ps2_cs'] = '#define PS2_CS ' + PS2_CS;
