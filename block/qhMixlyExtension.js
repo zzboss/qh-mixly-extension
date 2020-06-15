@@ -254,47 +254,56 @@ defineBlock('car_pause', function() {
 Blockly.qhColour.REMOTE_CTL = '#47C5CA';
 
 //红外接收模块
-defineBlock('ir_recv', function() {
-  this.setColour(Blockly.qhColour.REMOTE_CTL);
-  this.appendDummyInput()
-    .appendField(Blockly.MIXLY_YF_IR_RECEIVE)
-    .appendField(" ")
-    .appendField(new Blockly.FieldTextInput('ir_item'), 'VAR');
-  this.appendValueInput("PIN", Number)
-    .appendField(Blockly.MIXLY_PIN)
-    .setCheck(Number);
-  this.appendStatementInput('DO')
-    .appendField(Blockly.MIXLY_IR_RECEIVE_YES);
-  this.appendStatementInput('DO2')
-    .appendField(Blockly.MIXLY_IR_RECEIVE_NO);
-  this.setPreviousStatement(true);
-  this.setNextStatement(true);
-  this.setInputsInline(true);
-  this.setTooltip(Blockly.MIXLY_IR_RECIEVE_TOOLTIP);
-});
+Blockly.Blocks.qh_ir_recv = {
+  init: function() {
+    this.setColour(Blockly.qhColour.REMOTE_CTL);
+    this.appendDummyInput()
+        .appendField(Blockly.MIXLY_YF_IR_RECEIVE)
+        .appendField(" ")
+        .appendField(new Blockly.FieldTextInput('ir_item'), 'VAR');
+    this.appendValueInput("PIN", Number)
+        .appendField(Blockly.MIXLY_PIN)
+        .setCheck(Number);
+    this.appendStatementInput('DO')
+        .appendField(Blockly.MIXLY_IR_RECEIVE_YES);
+    this.appendStatementInput('DO2')
+        .appendField(Blockly.MIXLY_IR_RECEIVE_NO);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setInputsInline(true);
+    this.setTooltip(Blockly.MIXLY_IR_RECIEVE_TOOLTIP);
+  },
+  getVars: function() {
+    return [this.getFieldValue('VAR')]; },
+  renameVar: function(oldName, newName) {
+    if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+      this.setTitleValue(newName, 'VAR');
+    }
+  }
+};
 
 //红外mini遥控器键值
 var YF_IR_VAL = [
-  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_pow.png', 'width': 32, 'height': 32 }, '0xFFA25D'],
-  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_menu.png', 'width': 32, 'height': 32 }, '0xFFE21D'],
-  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_test.png', 'width': 32, 'height': 32 }, '0xFF22DD'],
-  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_+.png', 'width': 32, 'height': 32 }, '0xFF02FD'],
-  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_back.png', 'width': 32, 'height': 32 }, '0xFFC23D'],
-  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_rewind.png', 'width': 32, 'height': 32 }, '0xFFE01F'],
-  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_play.png', 'width': 32, 'height': 32 }, '0xFFA857'],
-  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_fastForward.png', 'width': 32, 'height': 32 }, '0xFF906F'],
-  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_0.png', 'width': 32, 'height': 32 }, '0xFF6897'],
-  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_-.png', 'width': 32, 'height': 32 }, '0xFF9867'],
-  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_c.png', 'width': 32, 'height': 32 }, '0xFFB04F'],
-  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_1.png', 'width': 32, 'height': 32 }, '0xFF30CF'],
-  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_2.png', 'width': 32, 'height': 32 }, '0xFF18E7'],
-  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_3.png', 'width': 32, 'height': 32 }, '0xFF7A85'],
-  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_4.png', 'width': 32, 'height': 32 }, '0xFF10EF'],
-  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_5.png', 'width': 32, 'height': 32 }, '0xFF38C7'],
-  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_6.png', 'width': 32, 'height': 32 }, '0xFF5AA5'],
-  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_7.png', 'width': 32, 'height': 32 }, '0xFF42BD'],
-  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_8.png', 'width': 32, 'height': 32 }, '0xFF4AB5'],
-  [{ 'src': '../../media/qheduino/yf_ir_val/yf_ir_9.png', 'width': 32, 'height': 32 }, '0xFF52AD'],
+  [{ src: '../../media/qheduino/yf_ir_val/yf_ir_pow.png',         alt: 'qh_ir_pow',        width: 32, height: 32 }, '0xFFA25D'],
+  [{ src: '../../media/qheduino/yf_ir_val/yf_ir_menu.png',        alt: 'qh_ir_menu',       width: 32, height: 32 }, '0xFFE21D'],
+  [{ src: '../../media/qheduino/yf_ir_val/yf_ir_test.png',        alt: 'qh_ir_test',       width: 32, height: 32 }, '0xFF22DD'],
+  [{ src: '../../media/qheduino/yf_ir_val/yf_ir_+.png',           alt: 'qh_ir_',           width: 32, height: 32 }, '0xFF02FD'],
+  [{ src: '../../media/qheduino/yf_ir_val/yf_ir_back.png',        alt: 'qh_ir_back',       width: 32, height: 32 }, '0xFFC23D'],
+  [{ src: '../../media/qheduino/yf_ir_val/yf_ir_rewind.png',      alt: 'qh_ir_rewind',     width: 32, height: 32 }, '0xFFE01F'],
+  [{ src: '../../media/qheduino/yf_ir_val/yf_ir_play.png',        alt: 'qh_ir_play',       width: 32, height: 32 }, '0xFFA857'],
+  [{ src: '../../media/qheduino/yf_ir_val/yf_ir_fastForward.png', alt: 'qh_ir_fastForward', width: 32, height: 32 }, '0xFF906F'],
+  [{ src: '../../media/qheduino/yf_ir_val/yf_ir_0.png',           alt: 'qh_ir_0',          width: 32, height: 32 }, '0xFF6897'],
+  [{ src: '../../media/qheduino/yf_ir_val/yf_ir_-.png',           alt: 'qh_ir_-',          width: 32, height: 32 }, '0xFF9867'],
+  [{ src: '../../media/qheduino/yf_ir_val/yf_ir_c.png',           alt: 'qh_ir_c',          width: 32, height: 32 }, '0xFFB04F'],
+  [{ src: '../../media/qheduino/yf_ir_val/yf_ir_1.png',           alt: 'qh_ir_1',          width: 32, height: 32 }, '0xFF30CF'],
+  [{ src: '../../media/qheduino/yf_ir_val/yf_ir_2.png',           alt: 'qh_ir_2',          width: 32, height: 32 }, '0xFF18E7'],
+  [{ src: '../../media/qheduino/yf_ir_val/yf_ir_3.png',           alt: 'qh_ir_3',          width: 32, height: 32 }, '0xFF7A85'],
+  [{ src: '../../media/qheduino/yf_ir_val/yf_ir_4.png',           alt: 'qh_ir_4',          width: 32, height: 32 }, '0xFF10EF'],
+  [{ src: '../../media/qheduino/yf_ir_val/yf_ir_5.png',           alt: 'qh_ir_5',          width: 32, height: 32 }, '0xFF38C7'],
+  [{ src: '../../media/qheduino/yf_ir_val/yf_ir_6.png',           alt: 'qh_ir_6',          width: 32, height: 32 }, '0xFF5AA5'],
+  [{ src: '../../media/qheduino/yf_ir_val/yf_ir_7.png',           alt: 'qh_ir_7',          width: 32, height: 32 }, '0xFF42BD'],
+  [{ src: '../../media/qheduino/yf_ir_val/yf_ir_8.png',           alt: 'qh_ir_8',          width: 32, height: 32 }, '0xFF4AB5'],
+  [{ src: '../../media/qheduino/yf_ir_val/yf_ir_9.png',           alt: 'qh_ir_9',          width: 32, height: 32 }, '0xFF52AD'],
 ];
 defineBlock('ir_val', function() {
   this.setColour(Blockly.qhColour.REMOTE_CTL);
@@ -331,22 +340,22 @@ defineBlock('ps2_init', function() {
 
 //PS2手柄键值 - button 数字
 var MIXLY_YF_PS2_BTN = [
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_start.png', 'width': 32, 'height': 20 }, 'PSB_START'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_select.png', 'width': 32, 'height': 21 }, 'PSB_SELECT'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_up.png', 'width': 52, 'height': 52 }, 'PSB_PAD_UP'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_right.png', 'width': 52, 'height': 52 }, 'PSB_PAD_RIGHT'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_left.png', 'width': 52, 'height': 52 }, 'PSB_PAD_LEFT'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_down.png', 'width': 52, 'height': 52 }, 'PSB_PAD_DOWN'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_cross.png', 'width': 32, 'height': 32 }, 'PSB_CROSS'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_circle.png', 'width': 32, 'height': 32 }, 'PSB_CIRCLE'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_square.png', 'width': 32, 'height': 32 }, 'PSB_SQUARE'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_triangle.png', 'width': 32, 'height': 32 }, 'PSB_TRIANGLE'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_l1.png', 'width': 73, 'height': 32 }, 'PSB_L1'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_r1.png', 'width': 73, 'height': 32 }, 'PSB_R1'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_l2.png', 'width': 73, 'height': 37 }, 'PSB_L2'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_r2.png', 'width': 73, 'height': 37 }, 'PSB_R2'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_l3.png', 'width': 48, 'height': 48 }, 'PSB_L3'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_r3.png', 'width': 48, 'height': 48 }, 'PSB_R3'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_start.png',    width: 32, height: 20, alt: 'qh_ps2_start'  }, 'PSB_START'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_select.png',   width: 32, height: 21, alt: 'qh_ps2_select'  }, 'PSB_SELECT'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_up.png',       width: 52, height: 52, alt: 'qh_ps2_up'  }, 'PSB_PAD_UP'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_right.png',    width: 52, height: 52, alt: 'qh_ps2_right'  }, 'PSB_PAD_RIGHT'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_left.png',     width: 52, height: 52, alt: 'qh_ps2_left'  }, 'PSB_PAD_LEFT'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_down.png',     width: 52, height: 52, alt: 'qh_ps2_down'  }, 'PSB_PAD_DOWN'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_cross.png',    width: 32, height: 32, alt: 'qh_ps2_cross'  }, 'PSB_CROSS'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_circle.png',   width: 32, height: 32, alt: 'qh_ps2_circle'  }, 'PSB_CIRCLE'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_square.png',   width: 32, height: 32, alt: 'qh_ps2_square'  }, 'PSB_SQUARE'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_triangle.png', width: 32, height: 32, alt: 'qh_ps2_triangle'  }, 'PSB_TRIANGLE'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_l1.png',       width: 73, height: 32, alt: 'qh_ps2_l1'  }, 'PSB_L1'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_r1.png',       width: 73, height: 32, alt: 'qh_ps2_r1'  }, 'PSB_R1'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_l2.png',       width: 73, height: 37, alt: 'qh_ps2_l2'  }, 'PSB_L2'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_r2.png',       width: 73, height: 37, alt: 'qh_ps2_r2'  }, 'PSB_R2'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_l3.png',       width: 48, height: 48, alt: 'qh_ps2_l3'  }, 'PSB_L3'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_r3.png',       width: 48, height: 48, alt: 'qh_ps2_r3'  }, 'PSB_R3'],
 ];
 
 const MIXLY_YF_PS2_BTN_STA = [
@@ -370,10 +379,10 @@ defineBlock('ps2_btn', function() {
 
 //PS2手柄摇杆
 const MIXLY_YF_PS2_ROCKER_STA = [
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_lx.png', 'width': 48, 'height': 48 }, 'PSS_LX'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_ly.png', 'width': 48, 'height': 48 }, 'PSS_LY'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_rx.png', 'width': 48, 'height': 48 }, 'PSS_RX'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_ry.png', 'width': 48, 'height': 48 }, 'PSS_RY'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_lx.png', width: 48, height: 48, alt: 'qh_ps2_lx' }, 'PSS_LX'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_ly.png', width: 48, height: 48, alt: 'qh_ps2_ly' }, 'PSS_LY'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_rx.png', width: 48, height: 48, alt: 'qh_ps2_rx' }, 'PSS_RX'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_ry.png', width: 48, height: 48, alt: 'qh_ps2_ry' }, 'PSS_RY'],
 ];
 
 // PS2 Controller Rocker
@@ -390,18 +399,18 @@ defineBlock('ps2_rocker', function() {
 
 //PS2手柄键值 - A button 模拟
 const MIXLY_YF_PS2_A_BTN = [
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_up.png', 'width': 52, 'height': 52 }, 'PSAB_PAD_UP'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_right.png', 'width': 52, 'height': 52 }, 'PSAB_PAD_RIGHT'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_left.png', 'width': 52, 'height': 52 }, 'PSAB_PAD_LEFT'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_down.png', 'width': 52, 'height': 52 }, 'PSAB_PAD_DOWN'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_cross.png', 'width': 32, 'height': 32 }, 'PSAB_CROSS'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_circle.png', 'width': 32, 'height': 32 }, 'PSAB_CIRCLE'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_square.png', 'width': 32, 'height': 32 }, 'PSAB_SQUARE'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_triangle.png', 'width': 32, 'height': 32 }, 'PSAB_TRIANGLE'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_l1.png', 'width': 73, 'height': 32 }, 'PSB_L1'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_r1.png', 'width': 73, 'height': 32 }, 'PSB_R1'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_l2.png', 'width': 73, 'height': 37 }, 'PSB_L2'],
-  [{ 'src': '../../media/qheduino/yf_ps2_val/yf_ps2_r2.png', 'width': 73, 'height': 37 }, 'PSB_R2'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_up.png',       width: 52, height: 52, alt: 'qh_ps2_up' }, 'PSAB_PAD_UP'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_right.png',    width: 52, height: 52, alt: 'qh_ps2_right' }, 'PSAB_PAD_RIGHT'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_left.png',     width: 52, height: 52, alt: 'qh_ps2_left' }, 'PSAB_PAD_LEFT'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_down.png',     width: 52, height: 52, alt: 'qh_ps2_down' }, 'PSAB_PAD_DOWN'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_cross.png',    width: 32, height: 32, alt: 'qh_ps2_cross' }, 'PSAB_CROSS'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_circle.png',   width: 32, height: 32, alt: 'qh_ps2_circle' }, 'PSAB_CIRCLE'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_square.png',   width: 32, height: 32, alt: 'qh_ps2_square' }, 'PSAB_SQUARE'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_triangle.png', width: 32, height: 32, alt: 'qh_ps2_triangle' }, 'PSAB_TRIANGLE'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_l1.png',       width: 73, height: 32, alt: 'qh_ps2_l1' }, 'PSB_L1'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_r1.png',       width: 73, height: 32, alt: 'qh_ps2_r1' }, 'PSB_R1'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_l2.png',       width: 73, height: 37, alt: 'qh_ps2_l2' }, 'PSB_L2'],
+  [{ src: '../../media/qheduino/yf_ps2_val/yf_ps2_r2.png',       width: 73, height: 37, alt: 'qh_ps2_r2' }, 'PSB_R2'],
 ];
 
 // PS2 Controller read analog value of the button  --- how hard you press the button
