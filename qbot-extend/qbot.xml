@@ -1,0 +1,14 @@
+<!-- 
+  type="company" 
+  block="block/qbot.js" 
+  generator="generator/qbot.js" 
+  color="color/qbot.js" 
+  lib="qbot" 
+  media="media/qbot"
+  language="language/qbot" 
+-->
+<script type = "text/javascript" src = "../../blocks/company/qbot.js"></script>
+<script type = "text/javascript" src = "../../generators/arduino/company/qbot.js"></script>
+<category id = "qbot" name = "qbot" colour = "#4169E1">
+  
+</category>
