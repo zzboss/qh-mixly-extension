@@ -24,6 +24,7 @@
     <block type = "qbot_ultrasonic_base"></block>
     <block type = "qbot_read_light_intensity"></block>
     <block type = "qbot_tracking"></block>
+    <block type = "qbot_read"></block>
   </category>
   <category id = "qbot_led_control" name = "灯光控制" colour = "#e67e22">
     <block type = "qbot_led_base"></block>

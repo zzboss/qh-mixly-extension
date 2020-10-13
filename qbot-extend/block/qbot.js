@@ -161,6 +161,23 @@ Blockly.Blocks["qbot_tracking"] = {
     this.setTooltip("读取循迹传感器值");
   },
 };
+let allPin = qbotProfile.digital;
+allPin.push(["A6", "A6"]);
+allPin.push(["A7", "A7"]);
+
+// 读取模拟量
+Blockly.Blocks["qbot_read"] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("读取引脚")
+      .appendField(new Blockly.FieldDropdown(allPin), "PIN")
+      .appendField("值");
+    this.setColour(colour_base_model);
+    this.setOutput(true, Number);
+    this.setInputsInline(true);
+    this.setTooltip("读取引脚值");
+  },
+};
 
 /**
  * 灯光控制模块

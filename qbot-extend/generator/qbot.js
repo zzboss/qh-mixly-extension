@@ -86,6 +86,8 @@ Blockly.Arduino["qbot_ultrasonic_base"] = function () {
 generateCodeForOutputBlock("qbot_read_light_intensity");
 // 获取循迹传感器值
 generateCodeForOutputBlock("qbot_tracking");
+// 读取模拟量
+generateCodeForOutputBlock("qbot_read");
 
 /**
  * 灯光控制
