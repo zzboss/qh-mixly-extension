@@ -198,7 +198,7 @@ Blockly.Arduino["qbot_ir_val"] = function () {
 
 // PS2 Controller init
 Blockly.Arduino["qbot_ps2_init"] = function () {
-  qbotBlockUtil.include("qheduino", "qheduino");
+  qbotBlockUtil.include("qbot", "qbot");
   var PS2_DAT = qbotBlockUtil.getInputFieldCode(this, "PIN1", "10");
   var PS2_CMD = qbotBlockUtil.getInputFieldCode(this, "PIN2", "11");
   var PS2_CS = qbotBlockUtil.getInputFieldCode(this, "PIN3", "12");
