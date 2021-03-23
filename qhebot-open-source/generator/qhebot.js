@@ -23,3 +23,34 @@ Blockly.Arduino.qhebot_voice_play = function () {
   var code = `qhvoice.QhPlayVoice("${text_file_name}");\n`;
   return code;
 };
+
+/**
+ * 蓝牙
+ */
+
+// 初始化
+Blockly.Arduino.qhebot_bluetooth_init = function () {
+  Blockly.Arduino.definitions_["include_" + "qhebot_bluetooth"] = '#include "QhAgreement.h"';
+  Blockly.Arduino.definitions_["qhebot_bluetooth_variable"] = "QhAgreement qhAgreement;";
+  Blockly.Arduino.setups_["qhebot_bluetooth_init"] = "qhAgreement.QhAgreementInit();";
+  var code = "";
+  return code;
+};
+
+// 蓝牙数据接收
+Blockly.Arduino.qhebot_bluetooth_receive = function () {
+  var code = "qhAgreement.get_qh_Agreement();\n";
+  return code;
+};
+
+// 读取q值
+Blockly.Arduino.qhebot_bluetooth_get_q = function () {
+  var code = "qhAgreement.get_q_code()";
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+// 读取h值
+Blockly.Arduino.qhebot_bluetooth_get_h = function () {
+  var code = "qhAgreement.get_h_code()";
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};

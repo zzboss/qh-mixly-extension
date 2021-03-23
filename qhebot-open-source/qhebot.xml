@@ -14,4 +14,10 @@
     <block type="qhebot_voice_volume_set"/>
     <block type="qhebot_voice_play"/>
   </category>
+  <category id = "qhebot_bluetooth" name = "蓝牙" colour = "#5cb3cc">
+    <block type="qhebot_bluetooth_init"/>
+    <block type="qhebot_bluetooth_receive"/>
+    <block type="qhebot_bluetooth_get_q"/>
+    <block type="qhebot_bluetooth_get_h"/>
+  </category>
 </category>
