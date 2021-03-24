@@ -37,8 +37,8 @@ Blockly.Arduino.qhebot_bluetooth_init = function () {
   return code;
 };
 
-// 蓝牙数据接收
-Blockly.Arduino.qhebot_bluetooth_receive = function () {
+// 蓝牙数据解析
+Blockly.Arduino.qhebot_bluetooth_resolve = function () {
   var code = "qhAgreement.get_qh_Agreement();\n";
   return code;
 };
@@ -53,4 +53,18 @@ Blockly.Arduino.qhebot_bluetooth_get_q = function () {
 Blockly.Arduino.qhebot_bluetooth_get_h = function () {
   var code = "qhAgreement.get_h_code()";
   return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+// 设置q值
+Blockly.Arduino.qhebot_bluetooth_set_q_code = function () {
+  var number_NAME = this.getFieldValue("NAME");
+  var code = `qhAgreement.set_q_code(${number_NAME});\n`;
+  return code;
+};
+
+// 设置h值
+Blockly.Arduino.qhebot_bluetooth_set_h_code = function () {
+  var number_NAME = this.getFieldValue("NAME");
+  var code = `qhAgreement.set_h_code(${number_NAME});\n`;
+  return code;
 };

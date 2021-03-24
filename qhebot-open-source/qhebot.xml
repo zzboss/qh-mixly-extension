@@ -16,8 +16,10 @@
   </category>
   <category id = "qhebot_bluetooth" name = "蓝牙" colour = "#5cb3cc">
     <block type="qhebot_bluetooth_init"/>
-    <block type="qhebot_bluetooth_receive"/>
+    <block type="qhebot_bluetooth_resolve"/>
     <block type="qhebot_bluetooth_get_q"/>
     <block type="qhebot_bluetooth_get_h"/>
+    <block type="qhebot_bluetooth_set_q_code"/>
+    <block type="qhebot_bluetooth_set_h_code"/>
   </category>
 </category>

@@ -27,6 +27,16 @@ int QhAgreement::get_h_code()
   return h_Code;
 }
 
+void QhAgreement::set_q_code(int code)
+{
+  q_Code = code;
+}
+
+void QhAgreement::set_h_code(int code)
+{
+  h_Code = code;
+}
+
 void QhAgreement::get_qh_Agreement()
 {
   char flag_over = 0;

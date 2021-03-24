@@ -12,6 +12,8 @@ public:
 	void get_qh_Agreement();
 	int get_q_code();
 	int get_h_code();
+	void set_q_code(int code);
+	void set_h_code(int code);
 };
 
 #endif

@@ -60,33 +60,61 @@ Blockly.Blocks.qhebot_bluetooth_init = {
   },
 };
 
-// 蓝牙数据接收
-Blockly.Blocks.qhebot_bluetooth_receive = {
+// 蓝牙数据解析
+Blockly.Blocks.qhebot_bluetooth_resolve = {
   init: function () {
-    this.appendDummyInput().appendField(new Blockly.FieldImage("../../media/bluetooth.svg", 20, 20, "*")).appendField(Blockly.QHEBOT_BLUETOOTH_READ);
+    this.appendDummyInput().appendField(new Blockly.FieldImage("../../media/bluetooth.svg", 20, 20, "*")).appendField(Blockly.QHEBOT_BLUETOOTH_RESOLVE);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(bluetoothBlockColor);
-    this.setTooltip(Blockly.QHEBOT_BLUETOOTH_READ);
+    this.setTooltip(Blockly.QHEBOT_BLUETOOTH_RESOLVE);
   },
 };
 
 // 读取q值
 Blockly.Blocks.qhebot_bluetooth_get_q = {
   init: function () {
-    this.appendDummyInput().appendField(new Blockly.FieldImage("../../media/bluetooth.svg", 20, 20, "*")).appendField(Blockly.QHEBOT_BLUETOOTH_READ_Q);
+    this.appendDummyInput().appendField(new Blockly.FieldImage("../../media/bluetooth.svg", 20, 20, "*")).appendField(Blockly.QHEBOT_BLUETOOTH_GET_Q);
     this.setOutput(true, null);
     this.setColour(bluetoothBlockColor);
-    this.setTooltip(Blockly.QHEBOT_BLUETOOTH_READ_Q);
+    this.setTooltip(Blockly.QHEBOT_BLUETOOTH_GET_Q);
   },
 };
 
 // 读取h值
 Blockly.Blocks.qhebot_bluetooth_get_h = {
   init: function () {
-    this.appendDummyInput().appendField(new Blockly.FieldImage("../../media/bluetooth.svg", 20, 20, "*")).appendField(Blockly.QHEBOT_BLUETOOTH_READ_H);
+    this.appendDummyInput().appendField(new Blockly.FieldImage("../../media/bluetooth.svg", 20, 20, "*")).appendField(Blockly.QHEBOT_BLUETOOTH_GET_H);
     this.setOutput(true, null);
     this.setColour(bluetoothBlockColor);
-    this.setTooltip(Blockly.QHEBOT_BLUETOOTH_READ_H);
+    this.setTooltip(Blockly.QHEBOT_BLUETOOTH_GET_H);
+  },
+};
+
+// 设置q值
+Blockly.Blocks.qhebot_bluetooth_set_q_code = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(new Blockly.FieldImage("../../media/bluetooth.svg", 20, 20, "*"))
+      .appendField(Blockly.QHEBOT_BLUETOOTH_SET_Q)
+      .appendField(new Blockly.FieldNumber(0), "NAME");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(bluetoothBlockColor);
+    this.setTooltip(Blockly.QHEBOT_BLUETOOTH_SET_Q);
+  },
+};
+
+// 设置h值
+Blockly.Blocks.qhebot_bluetooth_set_h_code = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField(new Blockly.FieldImage("../../media/bluetooth.svg", 20, 20, "*"))
+      .appendField(Blockly.QHEBOT_BLUETOOTH_SET_H)
+      .appendField(new Blockly.FieldNumber(0), "NAME");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(bluetoothBlockColor);
+    this.setTooltip(Blockly.QHEBOT_BLUETOOTH_SET_H);
   },
 };
