@@ -3,25 +3,38 @@
  */
 
 // 初始化
-Blockly.Arduino.qhebot_voice_init = function () {
-  Blockly.Arduino.definitions_["include_" + "qhebot_voice"] = '#include "QhVoice.h"';
-  Blockly.Arduino.definitions_["qhebot_voice_variable"] = "QhVoice qhvoice;";
-  Blockly.Arduino.setups_["qhebot_voice_init"] = "qhvoice.QhVoiceInit();";
-  return "";
+const qhebot_mp3_init = function () {
+  Blockly.Arduino.definitions_["include_SoftwareSerial"] = "#include <SoftwareSerial.h>";
+  Blockly.Arduino.definitions_["include_QHPlayer_Mini_Mp3"] = '#include "QHPlayer_Mini_Mp3.h"';
+  Blockly.Arduino.setups_["qhebot_mp3_init"] = `Serial.begin (9600);\n  mp3_set_serial (Serial);`;
 };
 
 // 音量设置
-Blockly.Arduino.qhebot_voice_volume_set = function () {
+Blockly.Arduino.qhebot_mp3_volume_set = function () {
+  qhebot_mp3_init();
   var number_vol = this.getFieldValue("vol");
-  var code = `qhvoice.QhVolume_control(${number_vol});\n`;
+  var code = `mp3_set_volume(${number_vol});\n`;
   return code;
 };
 
 // 播放音频文件
-Blockly.Arduino.qhebot_voice_play = function () {
+Blockly.Arduino.qhebot_mp3_play = function () {
+  qhebot_mp3_init();
   var text_file_name = this.getFieldValue("file_name");
-  var code = `qhvoice.QhPlayVoice("${text_file_name}");\n`;
+  var code = `mp3_play(${text_file_name});\n`;
   return code;
+};
+
+// 播放下一曲
+Blockly.Arduino.qhebot_mp3_next = function () {
+  qhebot_mp3_init();
+  return "mp3_next();\n";
+};
+
+// 播放上一曲
+Blockly.Arduino.qhebot_mp3_prev = function () {
+  qhebot_mp3_init();
+  return "mp3_prev();\n";
 };
 
 /**

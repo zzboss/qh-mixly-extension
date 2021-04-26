@@ -5,43 +5,54 @@
 const voiceBlockColor = "#1abc9c";
 const bluetoothBlockColor = "#5cb3cc";
 
-// 初始化
-Blockly.Blocks.qhebot_voice_init = {
-  init: function () {
-    this.appendDummyInput().appendField(new Blockly.FieldImage("../../media/voice.svg", 20, 20, "*")).appendField(Blockly.QHEBOT_VOICE_INIT);
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
-    this.setColour(voiceBlockColor);
-    this.setTooltip(Blockly.QHEBOT_VOICE_INIT);
-  },
-};
-
 // 音量设置
-Blockly.Blocks.qhebot_voice_volume_set = {
+Blockly.Blocks.qhebot_mp3_volume_set = {
   init: function () {
     this.appendDummyInput()
       .appendField(new Blockly.FieldImage("../../media/voice.svg", 20, 20, "*"))
-      .appendField(Blockly.QHEBOT_VOLUME_SET)
+      .appendField(Blockly.QHEBOT_MP3_VOLUME_SET)
       .appendField(new Blockly.FieldNumber(30, 0, 100, 1), "vol")
       .appendField("%");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(voiceBlockColor);
-    this.setTooltip(Blockly.QHEBOT_VOLUME_SET);
+    this.setTooltip(Blockly.QHEBOT_MP3_VOLUME_SET);
   },
 };
 
 // 播放音频文件
-Blockly.Blocks.qhebot_voice_play = {
+Blockly.Blocks.qhebot_mp3_play = {
   init: function () {
     this.appendDummyInput()
       .appendField(new Blockly.FieldImage("../../media/voice.svg", 20, 20, "*"))
-      .appendField(Blockly.QHEBOT_VOICE_PLAY)
-      .appendField(new Blockly.FieldTextInput("文件名称"), "file_name");
+      .appendField(Blockly.QHEBOT_MP3_PLAY)
+      .appendField(new Blockly.FieldNumber(0), "file_name");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(voiceBlockColor);
-    this.setTooltip(Blockly.QHEBOT_VOICE_PLAY);
+    this.setTooltip(Blockly.QHEBOT_MP3_PLAY);
+  },
+};
+
+// 播放下一曲
+Blockly.Blocks.qhebot_mp3_next = {
+  init: function () {
+    this.appendDummyInput().appendField(new Blockly.FieldImage("../../media/voice.svg", 20, 20, "*")).appendField(Blockly.QHEBOT_MP3_NEXT);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(voiceBlockColor);
+    this.setTooltip(Blockly.QHEBOT_MP3_NEXT);
+  },
+};
+
+// 播放上一曲
+Blockly.Blocks.qhebot_mp3_prev = {
+  init: function () {
+    this.appendDummyInput().appendField(new Blockly.FieldImage("../../media/voice.svg", 20, 20, "*")).appendField(Blockly.QHEBOT_MP3_PREV);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(voiceBlockColor);
+    this.setTooltip(Blockly.QHEBOT_MP3_PREV);
   },
 };
 

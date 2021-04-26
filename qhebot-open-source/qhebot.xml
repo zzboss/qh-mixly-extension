@@ -9,10 +9,11 @@
 <script type = "text/javascript" src = "../../blocks/company/qhebot.js"></script>
 <script type = "text/javascript" src = "../../generators/arduino/company/qhebot.js"></script>
 <category id = "qhebot" name = "沁和开源库" colour = "#1abc9c">
-  <category id = "qhebot_voice" name = "语音播报" colour = "#1abc9c">
-    <block type="qhebot_voice_init"/>
-    <block type="qhebot_voice_volume_set"/>
-    <block type="qhebot_voice_play"/>
+  <category id = "qhebot_mp3" name = "语音播报" colour = "#1abc9c">
+    <block type="qhebot_mp3_volume_set"/>
+    <block type="qhebot_mp3_play"/>
+    <block type="qhebot_mp3_next"/>
+    <block type="qhebot_mp3_prev"/>
   </category>
   <category id = "qhebot_bluetooth" name = "蓝牙" colour = "#5cb3cc">
     <block type="qhebot_bluetooth_init"/>

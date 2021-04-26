@@ -1,9 +1,10 @@
 /**
  * 语音播报
  */
-Blockly.QHEBOT_VOICE_INIT = "语音播报初始化";
-Blockly.QHEBOT_VOLUME_SET = "音量设置";
-Blockly.QHEBOT_VOICE_PLAY = "播放音频文件";
+Blockly.QHEBOT_MP3_VOLUME_SET = "音量设置";
+Blockly.QHEBOT_MP3_PLAY = "播放音频文件";
+Blockly.QHEBOT_MP3_NEXT = "播放下一曲";
+Blockly.QHEBOT_MP3_PREV = "播放上一曲";
 
 /**
  * 蓝牙

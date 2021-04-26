@@ -1,9 +1,10 @@
 /**
  * 语音播报
  */
-Blockly.QHEBOT_VOICE_INIT = "Voice initialization";
 Blockly.QHEBOT_VOLUME_SET = "Volume set";
 Blockly.QHEBOT_VOICE_PLAY = "Play audio files";
+Blockly.QHEBOT_MP3_NEXT = "Play next file";
+Blockly.QHEBOT_MP3_PREV = "Play prev file";
 
 /**
  * 蓝牙
